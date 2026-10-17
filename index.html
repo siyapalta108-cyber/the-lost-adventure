@@ -8,15 +8,14 @@
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;padding:12px;min-height:100vh;
- text-align:center;font-family:Arial,sans-serif;
- color:white;background:linear-gradient(#080d39,#342078)
+ margin:0;padding:12px;min-height:100vh;text-align:center;
+ font-family:Arial,sans-serif;color:white;
+ background:linear-gradient(#080d39,#342078)
 }
 h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .world{
- display:inline-block;padding:10px 18px;
- background:#241455;border:2px solid #9d8aff;
- border-radius:25px
+ display:inline-block;padding:10px 18px;background:#241455;
+ border:2px solid #9d8aff;border-radius:25px
 }
 .hud{
  display:flex;justify-content:space-between;gap:8px;
@@ -27,11 +26,10 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
  border:1px solid #9784ff;border-radius:12px
 }
 #game{
- position:relative;width:100%;max-width:600px;
- height:330px;margin:auto;overflow:hidden;
- border:3px solid #8c77f7;border-radius:15px;
- background:linear-gradient(#091449,#38208c 50%,#a35bc4);
- touch-action:none
+ position:relative;width:100%;max-width:600px;height:330px;
+ margin:auto;overflow:hidden;border:3px solid #8c77f7;
+ border-radius:15px;touch-action:none;
+ background:linear-gradient(#091449,#38208c 50%,#a35bc4)
 }
 #game.valley{
  background:linear-gradient(#071439,#244c88 55%,#7155b2)
@@ -44,25 +42,31 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
  background:linear-gradient(#4089d9,#8acbff 60%,#e0f6ff);
  border-color:#c5f3ff
 }
+#game.castle-level{
+ background:linear-gradient(#09051f,#301453 55%,#663b83);
+ border-color:#f3ce78
+}
 .moon{
- position:absolute;right:16%;top:22px;
- width:72px;height:72px;border-radius:50%;
- background:#fff0d8;box-shadow:0 0 35px 14px #d8b8ff
+ position:absolute;right:16%;top:22px;width:72px;height:72px;
+ border-radius:50%;background:#fff0d8;
+ box-shadow:0 0 35px 14px #d8b8ff
 }
 .forest .moon{
  background:#d6ffdc;box-shadow:0 0 35px 14px #8effa8
 }
 .islands .moon{
- background:#fff9ce;box-shadow:0 0 32px 12px #ffffff
+ background:#fff9ce;box-shadow:0 0 32px 12px white
+}
+.castle-level .moon{
+ background:#ffe4a0;box-shadow:0 0 40px 15px #ffcc69
 }
 .stars{
- position:absolute;inset:0;font-size:15px;
- line-height:42px;letter-spacing:13px;
- color:#fff6c2;opacity:.8;pointer-events:none
+ position:absolute;inset:0;font-size:15px;line-height:42px;
+ letter-spacing:13px;color:#fff6c2;opacity:.8;
+ pointer-events:none
 }
 .castle{
- position:absolute;right:3%;bottom:42px;
- font-size:58px;opacity:.7
+ position:absolute;right:3%;bottom:42px;font-size:58px;opacity:.7
 }
 .decoration{
  position:absolute;bottom:42px;font-size:32px;
@@ -79,38 +83,41 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .islands #ground{
  background:linear-gradient(#d9ffde 0 8px,#668da9 8px)
 }
+.castle-level #ground{
+ background:linear-gradient(#f7d47a 0 8px,#45315d 8px);
+ box-shadow:0 -5px 13px #ffd76c
+}
 .platform{
- position:absolute;width:24%;height:13px;
- border-radius:8px;
+ position:absolute;width:24%;height:13px;border-radius:8px;
  background:linear-gradient(#8cfff1,#7254c8);
- border:2px solid #c6ffff;
- box-shadow:0 0 14px #60ffe8;z-index:3
+ border:2px solid #c6ffff;box-shadow:0 0 14px #60ffe8;
+ z-index:3
 }
 .forest .platform{
  background:linear-gradient(#b5ff99,#348b5a);
  border-color:#e1ffc5
 }
 .islands .platform{
- background:linear-gradient(#ffffff,#83c7d9);
- border-color:#eaffff;
- box-shadow:0 0 16px white
+ background:linear-gradient(white,#83c7d9);
+ border-color:#eaffff;box-shadow:0 0 16px white
+}
+.castle-level .platform{
+ background:linear-gradient(#ffe7a5,#9470a9);
+ border-color:#ffe5a1;box-shadow:0 0 15px #ffc966
 }
 .bridge{
- position:absolute;bottom:42px;left:69%;width:29%;
- height:9px;background:#d7a9ff;
- box-shadow:0 0 15px #e5aaff;z-index:4
+ position:absolute;bottom:42px;left:69%;width:29%;height:9px;
+ background:#d7a9ff;box-shadow:0 0 15px #e5aaff;z-index:4
 }
 #door{
- position:absolute;right:3%;bottom:42px;
- width:29px;height:43px;background:#23113f;
- border:3px solid #f5d783;
+ position:absolute;right:3%;bottom:42px;width:29px;height:43px;
+ background:#23113f;border:3px solid #f5d783;
  border-radius:15px 15px 2px 2px;
  box-shadow:0 0 13px #ffe48c;z-index:4
 }
 #player{
- position:absolute;left:12px;bottom:42px;
- width:29px;height:39px;background:#ff9859;
- border:3px solid #55316d;
+ position:absolute;left:12px;bottom:42px;width:29px;height:39px;
+ background:#ff9859;border:3px solid #55316d;
  border-radius:10px 10px 7px 7px;z-index:6
 }
 #player::before{
@@ -127,25 +134,21 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
  to{filter:drop-shadow(0 0 13px cyan)}
 }
 .controls{
- display:flex;justify-content:center;gap:15px;
- margin:19px auto
+ display:flex;justify-content:center;gap:15px;margin:19px auto
 }
 button{
- width:78px;height:65px;font-size:28px;
- color:#c6e8ff;background:#16144c;
- border:2px solid #9482ff;border-radius:18px;
- touch-action:manipulation;
- user-select:none;-webkit-user-select:none;
- cursor:pointer
+ width:78px;height:65px;font-size:28px;color:#c6e8ff;
+ background:#16144c;border:2px solid #9482ff;
+ border-radius:18px;touch-action:manipulation;
+ user-select:none;-webkit-user-select:none;cursor:pointer
 }
 button:active{background:#5945ae}
 #message{
  min-height:25px;color:#bdfdf5;font-weight:bold
 }
 .action{
- display:none;width:auto;height:auto;
- margin:12px auto;padding:13px 23px;
- font-size:17px;background:#6842b5;
+ display:none;width:auto;height:auto;margin:12px auto;
+ padding:13px 23px;font-size:17px;background:#6842b5;
  border:2px solid #c5afff
 }
 </style>
@@ -181,7 +184,6 @@ button:active{background:#5945ae}
 </div>
 
 <p id="message">✨ Collect all 5 Moon Crystals!</p>
-
 <button id="next" class="action" type="button">Next Level →</button>
 <button id="restart" class="action" type="button">↻ Restart Level</button>
 
@@ -235,6 +237,13 @@ const levels={
    [0.10,48],[0.28,83],[0.45,48],
    [0.63,86],[0.81,48]
   ]
+ },
+ 5:{
+  name:"Level 5: Moonlight Castle",
+  crystals:[
+   [0.12,48],[0.29,84],[0.46,48],
+   [0.63,85],[0.81,48]
+  ]
  }
 };
 
@@ -248,6 +257,7 @@ function startLevel(number){
  game.classList.toggle("valley",level===2);
  game.classList.toggle("forest",level===3);
  game.classList.toggle("islands",level===4);
+ game.classList.toggle("castle-level",level===5);
 
  levelName.textContent=levels[level].name;
  scoreText.textContent="💎 0 / 5";
@@ -256,7 +266,8 @@ function startLevel(number){
   1:"✨ Collect all 5 Moon Crystals!",
   2:"💎 Explore Crystal Valley! Collect 5 crystals!",
   3:"🌲 Welcome to the Enchanted Forest! Find 5 crystals!",
-  4:"☁️ Welcome to Floating Islands! Find 5 crystals!"
+  4:"☁️ Welcome to Floating Islands! Find 5 crystals!",
+  5:"🏰 Enter Moonlight Castle! Collect all 5 crystals!"
  };
  message.textContent=messages[level];
 
@@ -264,7 +275,8 @@ function startLevel(number){
   1:["🍄","🍄","🏰"],
   2:["🔮","💠","🏛️"],
   3:["🌳","🌲","🌳"],
-  4:["☁️","🌈","☁️"]
+  4:["☁️","🌈","☁️"],
+  5:["🕯️","🔮","🏰"]
  };
  document.getElementById("decor1").textContent=decorations[level][0];
  document.getElementById("decor2").textContent=decorations[level][1];
@@ -308,11 +320,11 @@ function completeLevel(){
  door.style.background="#ffe59a";
  door.style.boxShadow="0 0 25px gold";
 
- if(level<4){
+ if(level<5){
   message.textContent="🎉 Level "+level+" Complete! Next level unlocked!";
   nextButton.style.display="block";
  }else{
-  message.textContent="🏆 Floating Islands Complete! Level 5 coming soon!";
+  message.textContent="🏆 Moonlight Castle Complete! Level 6 Coming Soon!";
  }
  restartButton.style.display="block";
 }
@@ -331,6 +343,10 @@ function update(){
   if(level===4){
    p1.style.left=(25+Math.sin(frame*0.018)*8)+"%";
    p2.style.left=(53+Math.sin(frame*0.023)*7)+"%";
+  }
+  if(level===5){
+   p1.style.left=(25+Math.sin(frame*0.028)*9)+"%";
+   p2.style.left=(53+Math.sin(frame*0.024)*7)+"%";
   }
 
   const previousY=y;
@@ -426,7 +442,7 @@ document.getElementById("jump")
  });
 
 nextButton.addEventListener("click",function(){
- if(finished && level<4)startLevel(level+1);
+ if(finished && level<5)startLevel(level+1);
 });
 
 restartButton.addEventListener("click",function(){
