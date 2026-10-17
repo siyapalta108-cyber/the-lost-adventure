@@ -36,10 +36,17 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 #game.valley{
  background:linear-gradient(#071439,#244c88 55%,#7155b2)
 }
+#game.forest{
+ background:linear-gradient(#071d2c,#174c49 55%,#376b50);
+ border-color:#75e6a4
+}
 .moon{
  position:absolute;right:16%;top:22px;
  width:72px;height:72px;border-radius:50%;
  background:#fff0d8;box-shadow:0 0 35px 14px #d8b8ff
+}
+.forest .moon{
+ background:#d6ffdc;box-shadow:0 0 35px 14px #8effa8
 }
 .stars{
  position:absolute;inset:0;font-size:15px;
@@ -59,12 +66,19 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
  background:linear-gradient(#49e4b0 0 8px,#27356a 8px);
  box-shadow:0 -5px 13px #58ffdc;z-index:3
 }
+.forest #ground{
+ background:linear-gradient(#9bff94 0 8px,#244a39 8px)
+}
 .platform{
  position:absolute;width:24%;height:13px;
  border-radius:8px;
  background:linear-gradient(#8cfff1,#7254c8);
  border:2px solid #c6ffff;
  box-shadow:0 0 14px #60ffe8;z-index:3
+}
+.forest .platform{
+ background:linear-gradient(#b5ff99,#348b5a);
+ border-color:#e1ffc5
 }
 .bridge{
  position:absolute;bottom:42px;left:69%;width:29%;
@@ -132,10 +146,7 @@ button:active{background:#5945ae}
 </div>
 
 <div id="game">
- <div class="stars">
- ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧
- ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦
- </div>
+ <div class="stars">✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦</div>
  <div class="moon"></div>
  <div class="castle" id="castle">🏰</div>
  <div class="decoration" id="decor1" style="left:3%">🍄</div>
@@ -149,15 +160,15 @@ button:active{background:#5945ae}
 </div>
 
 <div class="controls">
- <button id="left">◀</button>
- <button id="jump">⬆</button>
- <button id="right">▶</button>
+ <button id="left" type="button">◀</button>
+ <button id="jump" type="button">⬆</button>
+ <button id="right" type="button">▶</button>
 </div>
 
 <p id="message">✨ Collect all 5 Moon Crystals!</p>
 
-<button id="next" class="action">Next Level →</button>
-<button id="restart" class="action">↻ Restart Level</button>
+<button id="next" class="action" type="button">Next Level →</button>
+<button id="restart" class="action" type="button">↻ Restart Level</button>
 
 <script>
 const game=document.getElementById("game");
@@ -195,28 +206,44 @@ const levels={
    [0.12,48],[0.29,84],[0.46,48],
    [0.63,85],[0.80,48]
   ]
+ },
+ 3:{
+  name:"Level 3: The Enchanted Forest",
+  crystals:[
+   [0.11,48],[0.27,83],[0.43,48],
+   [0.61,87],[0.80,48]
+  ]
  }
 };
 
 function startLevel(number){
+ if(!levels[number])return;
+
  level=number;
  x=12;y=42;velocityY=0;direction=0;
  score=0;frame=0;finished=false;onSurface=true;
 
  game.classList.toggle("valley",level===2);
+ game.classList.toggle("forest",level===3);
+
  levelName.textContent=levels[level].name;
  scoreText.textContent="💎 0 / 5";
 
- message.textContent=level===1
-  ?"✨ Collect all 5 Moon Crystals!"
-  :"💎 Explore Crystal Valley! Collect 5 crystals!";
+ const messages={
+  1:"✨ Collect all 5 Moon Crystals!",
+  2:"💎 Explore Crystal Valley! Collect 5 crystals!",
+  3:"🌲 Welcome to the Enchanted Forest! Find 5 crystals!"
+ };
+ message.textContent=messages[level];
 
- document.getElementById("decor1").textContent=
-  level===1?"🍄":"🔮";
- document.getElementById("decor2").textContent=
-  level===1?"🍄":"💠";
- document.getElementById("castle").textContent=
-  level===1?"🏰":"🏛️";
+ const decorations={
+  1:["🍄","🍄","🏰"],
+  2:["🔮","💠","🏛️"],
+  3:["🌳","🌲","🌳"]
+ };
+ document.getElementById("decor1").textContent=decorations[level][0];
+ document.getElementById("decor2").textContent=decorations[level][1];
+ document.getElementById("castle").textContent=decorations[level][2];
 
  p1.style.left="25%";
  p2.style.left="53%";
@@ -256,13 +283,11 @@ function completeLevel(){
  door.style.background="#ffe59a";
  door.style.boxShadow="0 0 25px gold";
 
- if(level===1){
-  message.textContent=
-   "🎉 Level 1 Complete! Crystal Valley unlocked!";
+ if(level<3){
+  message.textContent="🎉 Level "+level+" Complete! Next level unlocked!";
   nextButton.style.display="block";
  }else{
-  message.textContent=
-   "🎉 Level 2 Complete! Amazing adventure!";
+  message.textContent="🏆 Enchanted Forest Complete! Level 4 coming soon!";
  }
  restartButton.style.display="block";
 }
@@ -272,8 +297,11 @@ function update(){
   frame++;
 
   if(level===2){
-   p1.style.left=
-    (25+Math.sin(frame*0.025)*7)+"%";
+   p1.style.left=(25+Math.sin(frame*0.025)*7)+"%";
+  }
+  if(level===3){
+   p1.style.left=(25+Math.sin(frame*0.022)*8)+"%";
+   p2.style.left=(53+Math.sin(frame*0.017)*5)+"%";
   }
 
   const previousY=y;
@@ -368,12 +396,10 @@ document.getElementById("jump")
   jumpNow();
  });
 
-// NEXT LEVEL BUTTON FIX
 nextButton.addEventListener("click",function(){
- startLevel(2);
+ if(finished && level<3)startLevel(level+1);
 });
 
-// RESTART BUTTON
 restartButton.addEventListener("click",function(){
  startLevel(level);
 });
