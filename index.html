@@ -40,6 +40,10 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
  background:linear-gradient(#071d2c,#174c49 55%,#376b50);
  border-color:#75e6a4
 }
+#game.islands{
+ background:linear-gradient(#4089d9,#8acbff 60%,#e0f6ff);
+ border-color:#c5f3ff
+}
 .moon{
  position:absolute;right:16%;top:22px;
  width:72px;height:72px;border-radius:50%;
@@ -47,6 +51,9 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 }
 .forest .moon{
  background:#d6ffdc;box-shadow:0 0 35px 14px #8effa8
+}
+.islands .moon{
+ background:#fff9ce;box-shadow:0 0 32px 12px #ffffff
 }
 .stars{
  position:absolute;inset:0;font-size:15px;
@@ -69,6 +76,9 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .forest #ground{
  background:linear-gradient(#9bff94 0 8px,#244a39 8px)
 }
+.islands #ground{
+ background:linear-gradient(#d9ffde 0 8px,#668da9 8px)
+}
 .platform{
  position:absolute;width:24%;height:13px;
  border-radius:8px;
@@ -79,6 +89,11 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .forest .platform{
  background:linear-gradient(#b5ff99,#348b5a);
  border-color:#e1ffc5
+}
+.islands .platform{
+ background:linear-gradient(#ffffff,#83c7d9);
+ border-color:#eaffff;
+ box-shadow:0 0 16px white
 }
 .bridge{
  position:absolute;bottom:42px;left:69%;width:29%;
@@ -213,6 +228,13 @@ const levels={
    [0.11,48],[0.27,83],[0.43,48],
    [0.61,87],[0.80,48]
   ]
+ },
+ 4:{
+  name:"Level 4: Floating Islands",
+  crystals:[
+   [0.10,48],[0.28,83],[0.45,48],
+   [0.63,86],[0.81,48]
+  ]
  }
 };
 
@@ -225,6 +247,7 @@ function startLevel(number){
 
  game.classList.toggle("valley",level===2);
  game.classList.toggle("forest",level===3);
+ game.classList.toggle("islands",level===4);
 
  levelName.textContent=levels[level].name;
  scoreText.textContent="💎 0 / 5";
@@ -232,14 +255,16 @@ function startLevel(number){
  const messages={
   1:"✨ Collect all 5 Moon Crystals!",
   2:"💎 Explore Crystal Valley! Collect 5 crystals!",
-  3:"🌲 Welcome to the Enchanted Forest! Find 5 crystals!"
+  3:"🌲 Welcome to the Enchanted Forest! Find 5 crystals!",
+  4:"☁️ Welcome to Floating Islands! Find 5 crystals!"
  };
  message.textContent=messages[level];
 
  const decorations={
   1:["🍄","🍄","🏰"],
   2:["🔮","💠","🏛️"],
-  3:["🌳","🌲","🌳"]
+  3:["🌳","🌲","🌳"],
+  4:["☁️","🌈","☁️"]
  };
  document.getElementById("decor1").textContent=decorations[level][0];
  document.getElementById("decor2").textContent=decorations[level][1];
@@ -283,11 +308,11 @@ function completeLevel(){
  door.style.background="#ffe59a";
  door.style.boxShadow="0 0 25px gold";
 
- if(level<3){
+ if(level<4){
   message.textContent="🎉 Level "+level+" Complete! Next level unlocked!";
   nextButton.style.display="block";
  }else{
-  message.textContent="🏆 Enchanted Forest Complete! Level 4 coming soon!";
+  message.textContent="🏆 Floating Islands Complete! Level 5 coming soon!";
  }
  restartButton.style.display="block";
 }
@@ -302,6 +327,10 @@ function update(){
   if(level===3){
    p1.style.left=(25+Math.sin(frame*0.022)*8)+"%";
    p2.style.left=(53+Math.sin(frame*0.017)*5)+"%";
+  }
+  if(level===4){
+   p1.style.left=(25+Math.sin(frame*0.018)*8)+"%";
+   p2.style.left=(53+Math.sin(frame*0.023)*7)+"%";
   }
 
   const previousY=y;
@@ -397,7 +426,7 @@ document.getElementById("jump")
  });
 
 nextButton.addEventListener("click",function(){
- if(finished && level<3)startLevel(level+1);
+ if(finished && level<4)startLevel(level+1);
 });
 
 restartButton.addEventListener("click",function(){
