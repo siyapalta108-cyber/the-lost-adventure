@@ -5,544 +5,382 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Lost Adventure</title>
-
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  padding: 12px;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: white;
-  background: linear-gradient(#080d39,#342078);
+*{box-sizing:border-box}
+body{
+ margin:0;padding:12px;min-height:100vh;
+ text-align:center;font-family:Arial,sans-serif;
+ color:white;background:linear-gradient(#080d39,#342078)
 }
-
-h1 {
-  font-size: 24px;
-  text-shadow: 0 0 12px #a58aff;
+h1{font-size:24px;text-shadow:0 0 12px #a58aff}
+.world{
+ display:inline-block;padding:10px 18px;
+ background:#241455;border:2px solid #9d8aff;
+ border-radius:25px
 }
-
-.world {
-  display: inline-block;
-  padding: 10px 18px;
-  background: #241455;
-  border: 2px solid #9d8aff;
-  border-radius: 25px;
+.hud{
+ display:flex;justify-content:space-between;gap:8px;
+ max-width:600px;margin:16px auto 10px;font-size:12px
 }
-
-.hud {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  max-width: 600px;
-  margin: 16px auto 10px;
-  font-size: 12px;
+.hud span{
+ padding:9px;background:#19134e;
+ border:1px solid #9784ff;border-radius:12px
 }
-
-.hud span {
-  padding: 9px;
-  background: #19134e;
-  border: 1px solid #9784ff;
-  border-radius: 12px;
+#game{
+ position:relative;width:100%;max-width:600px;
+ height:330px;margin:auto;overflow:hidden;
+ border:3px solid #8c77f7;border-radius:15px;
+ background:linear-gradient(#091449,#38208c 50%,#a35bc4);
+ touch-action:none
 }
-
-#game {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  height: 330px;
-  margin: auto;
-  overflow: hidden;
-  border: 3px solid #8c77f7;
-  border-radius: 15px;
-  background: linear-gradient(#091449,#38208c 50%,#a35bc4);
-  touch-action: none;
+#game.valley{
+ background:linear-gradient(#071439,#244c88 55%,#7155b2)
 }
-
-#game.valley {
-  background: linear-gradient(#071439,#244c88 55%,#7155b2);
+.moon{
+ position:absolute;right:16%;top:22px;
+ width:72px;height:72px;border-radius:50%;
+ background:#fff0d8;box-shadow:0 0 35px 14px #d8b8ff
 }
-
-.moon {
-  position: absolute;
-  right: 16%;
-  top: 22px;
-  width: 72px;
-  height: 72px;
-  background: #fff0d8;
-  border-radius: 50%;
-  box-shadow: 0 0 35px 14px #d8b8ff;
+.stars{
+ position:absolute;inset:0;font-size:15px;
+ line-height:42px;letter-spacing:13px;
+ color:#fff6c2;opacity:.8;pointer-events:none
 }
-
-.stars {
-  position: absolute;
-  inset: 0;
-  font-size: 15px;
-  line-height: 42px;
-  letter-spacing: 13px;
-  color: #fff6c2;
-  opacity: .8;
+.castle{
+ position:absolute;right:3%;bottom:42px;
+ font-size:58px;opacity:.7
 }
-
-.castle {
-  position: absolute;
-  right: 2%;
-  bottom: 42px;
-  font-size: 58px;
-  opacity: .7;
+.decoration{
+ position:absolute;bottom:42px;font-size:32px;
+ filter:drop-shadow(0 0 8px #ff6bff)
 }
-
-.decoration {
-  position: absolute;
-  bottom: 42px;
-  font-size: 32px;
-  filter: drop-shadow(0 0 8px #ff6bff);
+#ground{
+ position:absolute;bottom:0;width:100%;height:42px;
+ background:linear-gradient(#49e4b0 0 8px,#27356a 8px);
+ box-shadow:0 -5px 13px #58ffdc;z-index:3
 }
-
-#ground {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 42px;
-  background: linear-gradient(#49e4b0 0 8px,#27356a 8px);
-  box-shadow: 0 -5px 13px #58ffdc;
-  z-index: 3;
+.platform{
+ position:absolute;width:24%;height:13px;
+ border-radius:8px;
+ background:linear-gradient(#8cfff1,#7254c8);
+ border:2px solid #c6ffff;
+ box-shadow:0 0 14px #60ffe8;z-index:3
 }
-
-.platform {
-  position: absolute;
-  width: 24%;
-  height: 13px;
-  border-radius: 8px;
-  background: linear-gradient(#8cfff1,#7254c8);
-  border: 2px solid #c6ffff;
-  box-shadow: 0 0 14px #60ffe8;
-  z-index: 3;
+.bridge{
+ position:absolute;bottom:42px;left:69%;width:29%;
+ height:9px;background:#d7a9ff;
+ box-shadow:0 0 15px #e5aaff;z-index:4
 }
-
-.bridge {
-  position: absolute;
-  bottom: 42px;
-  left: 69%;
-  width: 29%;
-  height: 9px;
-  background: #d7a9ff;
-  box-shadow: 0 0 15px #e5aaff;
-  z-index: 4;
+#door{
+ position:absolute;right:3%;bottom:42px;
+ width:29px;height:43px;background:#23113f;
+ border:3px solid #f5d783;
+ border-radius:15px 15px 2px 2px;
+ box-shadow:0 0 13px #ffe48c;z-index:4
 }
-
-#door {
-  position: absolute;
-  right: 2%;
-  bottom: 42px;
-  width: 29px;
-  height: 43px;
-  background: #23113f;
-  border: 3px solid #f5d783;
-  border-radius: 15px 15px 2px 2px;
-  box-shadow: 0 0 13px #ffe48c;
-  z-index: 4;
+#player{
+ position:absolute;left:12px;bottom:42px;
+ width:29px;height:39px;background:#ff9859;
+ border:3px solid #55316d;
+ border-radius:10px 10px 7px 7px;z-index:6
 }
-
-#player {
-  position: absolute;
-  left: 12px;
-  bottom: 42px;
-  width: 29px;
-  height: 39px;
-  background: #ff9859;
-  border: 3px solid #55316d;
-  border-radius: 10px 10px 7px 7px;
-  z-index: 6;
+#player::before{
+ content:"•  •";position:absolute;top:5px;left:4px;
+ color:#392045;font-size:12px
 }
-
-#player::before {
-  content: "•  •";
-  position: absolute;
-  top: 5px;
-  left: 4px;
-  color: #392045;
-  font-size: 12px;
+.crystal{
+ position:absolute;font-size:25px;z-index:5;
+ filter:drop-shadow(0 0 8px cyan);
+ animation:glow 1s infinite alternate
 }
-
-.crystal {
-  position: absolute;
-  font-size: 25px;
-  z-index: 5;
-  filter: drop-shadow(0 0 8px cyan);
-  animation: glow 1s infinite alternate;
+@keyframes glow{
+ from{filter:drop-shadow(0 0 3px cyan)}
+ to{filter:drop-shadow(0 0 13px cyan)}
 }
-
-@keyframes glow {
-  from { filter: drop-shadow(0 0 3px cyan); }
-  to { filter: drop-shadow(0 0 13px cyan); }
+.controls{
+ display:flex;justify-content:center;gap:15px;
+ margin:19px auto
 }
-
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin: 19px auto;
+button{
+ width:78px;height:65px;font-size:28px;
+ color:#c6e8ff;background:#16144c;
+ border:2px solid #9482ff;border-radius:18px;
+ touch-action:manipulation;
+ user-select:none;-webkit-user-select:none;
+ cursor:pointer
 }
-
-button {
-  width: 78px;
-  height: 65px;
-  font-size: 28px;
-  color: #c6e8ff;
-  background: #16144c;
-  border: 2px solid #9482ff;
-  border-radius: 18px;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
+button:active{background:#5945ae}
+#message{
+ min-height:25px;color:#bdfdf5;font-weight:bold
 }
-
-button:active { background: #5945ae; }
-
-#message {
-  min-height: 25px;
-  color: #bdfdf5;
-  font-weight: bold;
-}
-
-#next {
-  display: none;
-  width: auto;
-  height: auto;
-  margin: 12px auto;
-  padding: 13px 23px;
-  font-size: 17px;
-  background: #6842b5;
-  border: 2px solid #c5afff;
+.action{
+ display:none;width:auto;height:auto;
+ margin:12px auto;padding:13px 23px;
+ font-size:17px;background:#6842b5;
+ border:2px solid #c5afff
 }
 </style>
 </head>
-
 <body>
 
 <h1>🌿 The Lost Adventure 🌙</h1>
-
 <div class="world">World 1 — Moonlight Kingdom</div>
 
 <div class="hud">
-  <span id="levelName">Level 1: The Magical Path</span>
-  <span id="score">💎 0 / 5</span>
+ <span id="levelName">Level 1: The Magical Path</span>
+ <span id="score">💎 0 / 5</span>
 </div>
 
 <div id="game">
-
-  <div class="stars">
-    ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧
-    ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦
-  </div>
-
-  <div class="moon"></div>
-  <div class="castle" id="castle">🏰</div>
-
-  <div class="decoration" id="decor1" style="left:3%">🍄</div>
-  <div class="decoration" id="decor2" style="left:75%">🍄</div>
-
-  <div class="platform" id="p1"
-       style="left:25%;bottom:104px"></div>
-
-  <div class="platform" id="p2"
-       style="left:53%;bottom:151px"></div>
-
-  <div class="bridge"></div>
-  <div id="door"></div>
-  <div id="ground"></div>
-  <div id="player"></div>
-
+ <div class="stars">
+ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧
+ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦
+ </div>
+ <div class="moon"></div>
+ <div class="castle" id="castle">🏰</div>
+ <div class="decoration" id="decor1" style="left:3%">🍄</div>
+ <div class="decoration" id="decor2" style="left:75%">🍄</div>
+ <div class="platform" id="p1" style="left:25%;bottom:104px"></div>
+ <div class="platform" id="p2" style="left:53%;bottom:151px"></div>
+ <div class="bridge"></div>
+ <div id="door"></div>
+ <div id="ground"></div>
+ <div id="player"></div>
 </div>
 
 <div class="controls">
-  <button id="left">◀</button>
-  <button id="jump">⬆</button>
-  <button id="right">▶</button>
+ <button id="left">◀</button>
+ <button id="jump">⬆</button>
+ <button id="right">▶</button>
 </div>
 
-<p id="message">✨ Collect 5 crystals, then reach the castle!</p>
+<p id="message">✨ Collect all 5 Moon Crystals!</p>
 
-<button id="next">Next Level →</button>
+<button id="next" class="action">Next Level →</button>
+<button id="restart" class="action">↻ Restart Level</button>
 
 <script>
-const game = document.getElementById("game");
-const player = document.getElementById("player");
-const scoreText = document.getElementById("score");
-const message = document.getElementById("message");
-const levelName = document.getElementById("levelName");
-const nextButton = document.getElementById("next");
-const door = document.getElementById("door");
+const game=document.getElementById("game");
+const player=document.getElementById("player");
+const scoreText=document.getElementById("score");
+const message=document.getElementById("message");
+const levelName=document.getElementById("levelName");
+const nextButton=document.getElementById("next");
+const restartButton=document.getElementById("restart");
+const door=document.getElementById("door");
+const p1=document.getElementById("p1");
+const p2=document.getElementById("p2");
 
-const p1 = document.getElementById("p1");
-const p2 = document.getElementById("p2");
+let level=1,x=12,y=42,velocityY=0,direction=0;
+let score=0,finished=false,onSurface=true,frame=0;
+let crystals=[];
 
-let level = 1;
-let x = 12;
-let y = 42;
-let velocityY = 0;
-let direction = 0;
-let score = 0;
-let finished = false;
-let onSurface = true;
-let frame = 0;
-let crystals = [];
+const speed=3;
+const gravity=0.55;
+const jumpPower=11.5;
+const playerWidth=29;
+const playerHeight=39;
 
-const speed = 3;
-const gravity = 0.55;
-const jumpPower = 11.5;
-const playerWidth = 29;
-const playerHeight = 39;
-
-const levels = {
-  1: {
-    name: "Level 1: The Magical Path",
-    crystals: [
-      [0.13,48],
-      [0.32,128],
-      [0.45,54],
-      [0.60,175],
-      [0.79,53]
-    ]
-  },
-  2: {
-    name: "Level 2: Crystal Valley",
-    crystals: [
-      [0.12,48],
-      [0.30,128],
-      [0.47,55],
-      [0.62,175],
-      [0.82,53]
-    ]
-  }
+const levels={
+ 1:{
+  name:"Level 1: The Magical Path",
+  crystals:[
+   [0.13,48],[0.30,80],[0.47,48],
+   [0.63,80],[0.79,48]
+  ]
+ },
+ 2:{
+  name:"Level 2: Crystal Valley",
+  crystals:[
+   [0.12,48],[0.29,84],[0.46,48],
+   [0.63,85],[0.80,48]
+  ]
+ }
 };
 
-function startLevel(number) {
-  level = number;
-  x = 12;
-  y = 42;
-  velocityY = 0;
-  direction = 0;
-  score = 0;
-  frame = 0;
-  finished = false;
-  onSurface = true;
+function startLevel(number){
+ level=number;
+ x=12;y=42;velocityY=0;direction=0;
+ score=0;frame=0;finished=false;onSurface=true;
 
-  game.classList.toggle("valley",level === 2);
+ game.classList.toggle("valley",level===2);
+ levelName.textContent=levels[level].name;
+ scoreText.textContent="💎 0 / 5";
 
-  levelName.textContent = levels[level].name;
-  scoreText.textContent = "💎 0 / 5";
+ message.textContent=level===1
+  ?"✨ Collect all 5 Moon Crystals!"
+  :"💎 Explore Crystal Valley! Collect 5 crystals!";
 
-  message.textContent =
-    level === 1
-    ? "✨ Collect 5 crystals, then reach the castle!"
-    : "💎 Explore Crystal Valley! Watch the moving platform!";
+ document.getElementById("decor1").textContent=
+  level===1?"🍄":"🔮";
+ document.getElementById("decor2").textContent=
+  level===1?"🍄":"💠";
+ document.getElementById("castle").textContent=
+  level===1?"🏰":"🏛️";
 
-  document.getElementById("decor1").textContent =
-    level === 1 ? "🍄" : "🔮";
+ p1.style.left="25%";
+ p2.style.left="53%";
 
-  document.getElementById("decor2").textContent =
-    level === 1 ? "🍄" : "💠";
+ door.style.background="#23113f";
+ door.style.boxShadow="0 0 13px #ffe48c";
 
-  document.getElementById("castle").textContent =
-    level === 1 ? "🏰" : "🏛️";
+ nextButton.style.display="none";
+ restartButton.style.display="none";
 
-  p1.style.left = "25%";
-  p2.style.left = "53%";
+ crystals.forEach(c=>c.element.remove());
+ crystals=[];
 
-  door.style.background = "#23113f";
-  door.style.boxShadow = "0 0 13px #ffe48c";
+ levels[level].crystals.forEach(([fraction,height])=>{
+  const element=document.createElement("div");
+  element.className="crystal";
+  element.textContent="💎";
+  game.appendChild(element);
+  crystals.push({element,fraction,height,collected:false});
+ });
 
-  nextButton.style.display = "none";
-
-  crystals.forEach(c => c.element.remove());
-  crystals = [];
-
-  levels[level].crystals.forEach(([fraction,height]) => {
-    const element = document.createElement("div");
-    element.className = "crystal";
-    element.textContent = "💎";
-    game.appendChild(element);
-
-    crystals.push({
-      element,
-      fraction,
-      height,
-      collected: false
-    });
-  });
-
-  player.style.left = x + "px";
-  player.style.bottom = y + "px";
-
-  requestAnimationFrame(update);
+ player.style.left=x+"px";
+ player.style.bottom=y+"px";
 }
 
-function jumpNow() {
-  if (onSurface && !finished) {
-    velocityY = jumpPower;
-    onSurface = false;
-  }
+function jumpNow(){
+ if(onSurface&&!finished){
+  velocityY=jumpPower;
+  onSurface=false;
+ }
 }
 
-function update() {
-  if (finished) return;
+function completeLevel(){
+ finished=true;
+ direction=0;
 
+ door.style.background="#ffe59a";
+ door.style.boxShadow="0 0 25px gold";
+
+ if(level===1){
+  message.textContent=
+   "🎉 Level 1 Complete! Crystal Valley unlocked!";
+  nextButton.style.display="block";
+ }else{
+  message.textContent=
+   "🎉 Level 2 Complete! Amazing adventure!";
+ }
+ restartButton.style.display="block";
+}
+
+function update(){
+ if(!finished){
   frame++;
 
-  // Level 2: first platform moves gently sideways.
-  if (level === 2) {
-    p1.style.left =
-      (25 + Math.sin(frame * 0.025) * 7) + "%";
+  if(level===2){
+   p1.style.left=
+    (25+Math.sin(frame*0.025)*7)+"%";
   }
 
-  const oldX = x;
-  const previousY = y;
+  const previousY=y;
+  x+=direction*speed;
+  x=Math.max(0,Math.min(x,game.clientWidth-playerWidth));
 
-  x += direction * speed;
-  x = Math.max(
-    0,
-    Math.min(x,game.clientWidth-playerWidth)
-  );
+  velocityY-=gravity;
+  y+=velocityY;
+  onSurface=false;
 
-  velocityY -= gravity;
-  y += velocityY;
-  onSurface = false;
-
-  if (y <= 42) {
-    y = 42;
-    velocityY = 0;
-    onSurface = true;
+  if(y<=42){
+   y=42;velocityY=0;onSurface=true;
   }
 
-  const platforms = [
-    {element:p1,height:117},
-    {element:p2,height:164}
+  const platforms=[
+   {element:p1,height:117},
+   {element:p2,height:164}
   ];
 
-  if (velocityY <= 0) {
-    platforms.forEach(platform => {
-      const left = platform.element.offsetLeft;
-      const right = left + platform.element.offsetWidth;
-      const top = platform.height;
+  if(velocityY<=0){
+   platforms.forEach(platform=>{
+    const left=platform.element.offsetLeft;
+    const right=left+platform.element.offsetWidth;
+    const top=platform.height;
 
-      if (
-        x + playerWidth > left &&
-        x < right &&
-        previousY >= top &&
-        y <= top
-      ) {
-        y = top;
-        velocityY = 0;
-        onSurface = true;
-      }
-    });
+    if(
+     x+playerWidth>left &&
+     x<right &&
+     previousY>=top &&
+     y<=top
+    ){
+     y=top;
+     velocityY=0;
+     onSurface=true;
+    }
+   });
   }
 
-  player.style.left = x + "px";
-  player.style.bottom = y + "px";
+  player.style.left=x+"px";
+  player.style.bottom=y+"px";
 
-  crystals.forEach(crystal => {
-    if (crystal.collected) return;
+  crystals.forEach(crystal=>{
+   if(crystal.collected)return;
 
-    const cx =
-      crystal.fraction * (game.clientWidth-27);
+   const cx=crystal.fraction*(game.clientWidth-27);
+   crystal.element.style.left=cx+"px";
+   crystal.element.style.bottom=crystal.height+"px";
 
-    crystal.element.style.left = cx + "px";
-    crystal.element.style.bottom =
-      crystal.height + "px";
+   const touching=
+    x+playerWidth>cx &&
+    x<cx+25 &&
+    y+playerHeight>crystal.height &&
+    y<crystal.height+25;
 
-    const touching =
-      x + playerWidth > cx &&
-      x < cx + 25 &&
-      y + playerHeight > crystal.height &&
-      y < crystal.height + 25;
+   if(touching){
+    crystal.collected=true;
+    crystal.element.remove();
+    score++;
+    scoreText.textContent="💎 "+score+" / 5";
 
-    if (touching) {
-      crystal.collected = true;
-      crystal.element.remove();
-
-      score++;
-      scoreText.textContent = "💎 " + score + " / 5";
-
-      if (score === 5) {
-        message.textContent =
-          "🏰 All crystals found! Reach the glowing door!";
-      }
-    }
+    if(score===5)completeLevel();
+   }
   });
+ }
 
-  const doorLeft = door.offsetLeft;
-
-  if (
-    score === 5 &&
-    x + playerWidth > doorLeft &&
-    x < doorLeft + door.offsetWidth &&
-    y < 90
-  ) {
-    finished = true;
-    direction = 0;
-
-    door.style.background = "#ffe59a";
-    door.style.boxShadow = "0 0 25px gold";
-
-    if (level === 1) {
-      message.textContent =
-        "🎉 Level 1 Complete! Crystal Valley unlocked!";
-      nextButton.textContent = "Next Level →";
-    } else {
-      message.textContent =
-        "🎉 Level 2 Complete! Amazing adventure!";
-      nextButton.textContent = "↻ Replay Level 2";
-    }
-
-    nextButton.style.display = "block";
-    return;
-  }
-
-  requestAnimationFrame(update);
+ requestAnimationFrame(update);
 }
 
-function moveButton(id,value) {
-  const button = document.getElementById(id);
+function moveButton(id,value){
+ const button=document.getElementById(id);
 
-  button.addEventListener("pointerdown",e => {
-    e.preventDefault();
-    button.setPointerCapture(e.pointerId);
-    direction = value;
-  });
+ button.addEventListener("pointerdown",e=>{
+  e.preventDefault();
+  button.setPointerCapture(e.pointerId);
+  if(!finished)direction=value;
+ });
 
-  function stop() {
-    if (direction === value) direction = 0;
-  }
-
-  button.addEventListener("pointerup",stop);
-  button.addEventListener("pointercancel",stop);
-  button.addEventListener("lostpointercapture",stop);
+ function stop(){
+  if(direction===value)direction=0;
+ }
+ button.addEventListener("pointerup",stop);
+ button.addEventListener("pointercancel",stop);
+ button.addEventListener("lostpointercapture",stop);
 }
 
 moveButton("left",-1);
 moveButton("right",1);
 
 document.getElementById("jump")
-  .addEventListener("pointerdown",e => {
-    e.preventDefault();
-    jumpNow();
-  });
+ .addEventListener("pointerdown",e=>{
+  e.preventDefault();
+  jumpNow();
+ });
 
-nextButton.addEventListener("click",() => {
-  if (level === 1) {
-    startLevel(2);
-  } else {
-    startLevel(2);
-  }
+// NEXT LEVEL BUTTON FIX
+nextButton.addEventListener("click",function(){
+ startLevel(2);
+});
+
+// RESTART BUTTON
+restartButton.addEventListener("click",function(){
+ startLevel(level);
 });
 
 startLevel(1);
+requestAnimationFrame(update);
 </script>
-
 </body>
 </html>
+
