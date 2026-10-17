@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Lost Adventure</title>
 
 <style>
@@ -12,44 +12,40 @@
 body {
   margin: 0;
   padding: 12px;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: white;
-  background: linear-gradient(#080d39, #342078);
   min-height: 100vh;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: linear-gradient(#080d39,#342078);
 }
 
 h1 {
-  font-size: 25px;
-  margin: 12px 0;
+  font-size: 24px;
   text-shadow: 0 0 12px #a58aff;
 }
 
 .world {
   display: inline-block;
-  padding: 9px 20px;
-  border: 2px solid #9d8aff;
-  border-radius: 30px;
+  padding: 10px 18px;
   background: #241455;
-  color: #e2caff;
-  font-weight: bold;
+  border: 2px solid #9d8aff;
+  border-radius: 25px;
 }
 
 .hud {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 8px;
+  gap: 7px;
   max-width: 600px;
-  margin: 17px auto 9px;
-  font-size: 13px;
+  margin: 16px auto 10px;
+  font-size: 12px;
 }
 
 .hud span {
+  padding: 9px;
   background: #19134e;
   border: 1px solid #9784ff;
-  border-radius: 14px;
-  padding: 10px;
+  border-radius: 12px;
 }
 
 #game {
@@ -72,38 +68,37 @@ h1 {
 .moon {
   position: absolute;
   right: 16%;
-  top: 25px;
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
+  top: 22px;
+  width: 72px;
+  height: 72px;
   background: #fff0d8;
+  border-radius: 50%;
   box-shadow: 0 0 35px 14px #d8b8ff;
 }
 
 .stars {
   position: absolute;
   inset: 0;
-  color: #fff7c0;
-  font-size: 13px;
-  letter-spacing: 15px;
-  line-height: 43px;
-  opacity: .85;
+  font-size: 15px;
+  line-height: 42px;
+  letter-spacing: 13px;
+  color: #fff6c2;
+  opacity: .8;
 }
 
 .castle {
   position: absolute;
-  right: 9%;
-  bottom: 41px;
-  font-size: 75px;
-  opacity: .65;
-  filter: drop-shadow(0 0 12px #b48cff);
+  right: 2%;
+  bottom: 42px;
+  font-size: 58px;
+  opacity: .7;
 }
 
 .mushroom {
   position: absolute;
-  bottom: 39px;
-  font-size: 43px;
-  filter: drop-shadow(0 0 9px #f46bff);
+  bottom: 42px;
+  font-size: 32px;
+  filter: drop-shadow(0 0 8px #ff6bff);
 }
 
 #ground {
@@ -111,39 +106,73 @@ h1 {
   bottom: 0;
   width: 100%;
   height: 42px;
-  background: linear-gradient(#49e4b0 0 8px, #27356a 8px);
+  background: linear-gradient(#49e4b0 0 8px,#27356a 8px);
   box-shadow: 0 -5px 13px #58ffdc;
   z-index: 3;
 }
 
+.platform {
+  position: absolute;
+  width: 24%;
+  height: 13px;
+  border-radius: 8px;
+  background: linear-gradient(#8cfff1,#7254c8);
+  border: 2px solid #c6ffff;
+  box-shadow: 0 0 14px #60ffe8;
+  z-index: 3;
+}
+
+.bridge {
+  position: absolute;
+  bottom: 42px;
+  left: 69%;
+  width: 29%;
+  height: 9px;
+  background: #d7a9ff;
+  box-shadow: 0 0 15px #e5aaff;
+  z-index: 4;
+}
+
+#door {
+  position: absolute;
+  right: 2%;
+  bottom: 42px;
+  width: 29px;
+  height: 43px;
+  background: #23113f;
+  border: 3px solid #f5d783;
+  border-radius: 15px 15px 2px 2px;
+  box-shadow: 0 0 13px #ffe48c;
+  z-index: 4;
+}
+
 #player {
   position: absolute;
-  left: 20px;
+  left: 12px;
   bottom: 42px;
-  width: 30px;
+  width: 29px;
   height: 39px;
   background: #ff9859;
   border: 3px solid #55316d;
   border-radius: 10px 10px 7px 7px;
-  z-index: 5;
+  z-index: 6;
 }
 
 #player::before {
   content: "•  •";
   position: absolute;
   top: 5px;
-  left: 5px;
+  left: 4px;
   color: #392045;
-  font-size: 13px;
-  white-space: nowrap;
+  font-size: 12px;
 }
 
 .crystal {
   position: absolute;
-  font-size: 27px;
-  z-index: 4;
+  font-size: 25px;
+  z-index: 5;
   filter: drop-shadow(0 0 8px cyan);
-  animation: glow 1.3s infinite alternate;
+  animation: glow 1s infinite alternate;
 }
 
 @keyframes glow {
@@ -154,14 +183,14 @@ h1 {
 .controls {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 15px;
   margin: 19px auto;
 }
 
 button {
   width: 78px;
   height: 65px;
-  font-size: 29px;
+  font-size: 28px;
   color: #c6e8ff;
   background: #16144c;
   border: 2px solid #9482ff;
@@ -174,8 +203,8 @@ button {
 button:active { background: #5945ae; }
 
 #message {
-  min-height: 26px;
   color: #bdfdf5;
+  min-height: 25px;
   font-weight: bold;
 }
 </style>
@@ -184,17 +213,19 @@ button:active { background: #5945ae; }
 <body>
 
 <h1>🌿 The Lost Adventure 🌙</h1>
+
 <div class="world">World 1 — Moonlight Kingdom</div>
 
 <div class="hud">
-  <span>Level 1: The Moonlit Path</span>
+  <span>Level 1: The Magical Path</span>
   <span id="score">💎 0 / 5</span>
 </div>
 
 <div id="game">
+
   <div class="stars">
     ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧
-    ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧
+    ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦
   </div>
 
   <div class="moon"></div>
@@ -203,8 +234,17 @@ button:active { background: #5945ae; }
   <div class="mushroom" style="left:3%">🍄</div>
   <div class="mushroom" style="left:75%">🍄</div>
 
+  <div class="platform" id="p1"
+       style="left:25%;bottom:104px"></div>
+
+  <div class="platform" id="p2"
+       style="left:53%;bottom:151px"></div>
+
+  <div class="bridge"></div>
+  <div id="door"></div>
   <div id="ground"></div>
   <div id="player"></div>
+
 </div>
 
 <div class="controls">
@@ -213,56 +253,61 @@ button:active { background: #5945ae; }
   <button id="right">▶</button>
 </div>
 
-<p id="message">✨ Collect all 5 Moon Crystals!</p>
+<p id="message">✨ Collect 5 crystals, then reach the castle!</p>
 
 <script>
 const game = document.getElementById("game");
 const player = document.getElementById("player");
 const scoreText = document.getElementById("score");
 const message = document.getElementById("message");
+const door = document.getElementById("door");
 
-let x = 20;
-let y = 0;
+let x = 12;
+let y = 42;
 let velocityY = 0;
 let direction = 0;
 let score = 0;
 let finished = false;
+let onSurface = true;
 
 const speed = 3;
 const gravity = 0.55;
-const jumpPower = 11;
+const jumpPower = 11.5;
+const playerWidth = 29;
+const playerHeight = 39;
 
-// Positions adapt to iPhone screen width.
-const crystalData = [
-  [0.15, 47],
-  [0.32, 91],
-  [0.49, 48],
-  [0.67, 91],
-  [0.85, 48]
+const platforms = [
+  { element: document.getElementById("p1"), height: 117 },
+  { element: document.getElementById("p2"), height: 164 }
 ];
 
-const crystals = crystalData.map(([fraction, height]) => {
+// Crystal positions scale to phone width.
+const crystalData = [
+  [0.13, 48],
+  [0.32, 128],
+  [0.45, 54],
+  [0.60, 175],
+  [0.79, 53]
+];
+
+const crystals = crystalData.map(([fraction,height]) => {
   const element = document.createElement("div");
   element.className = "crystal";
   element.textContent = "💎";
-
-  const cx = fraction * (game.clientWidth - 28);
-
-  element.style.left = cx + "px";
-  element.style.bottom = height + "px";
   game.appendChild(element);
 
   return {
-    element: element,
-    fraction: fraction,
-    height: height,
+    element,
+    fraction,
+    height,
     collected: false
   };
 });
 
 function jumpNow() {
-  if (y === 0 && !finished) {
+  if (onSurface && !finished) {
     velocityY = jumpPower;
+    onSurface = false;
   }
 }
 
@@ -270,64 +315,107 @@ function update() {
   if (finished) return;
 
   x += direction * speed;
+
   x = Math.max(
     0,
-    Math.min(x, game.clientWidth - player.offsetWidth)
+    Math.min(x, game.clientWidth - playerWidth)
   );
+
+  const previousY = y;
 
   velocityY -= gravity;
   y += velocityY;
+  onSurface = false;
 
-  if (y < 0) {
-    y = 0;
+  // Ground collision.
+  if (y <= 42) {
+    y = 42;
     velocityY = 0;
+    onSurface = true;
+  }
+
+  // Land on floating platforms.
+  if (velocityY <= 0) {
+    platforms.forEach(platform => {
+      const left = platform.element.offsetLeft;
+      const right = left + platform.element.offsetWidth;
+      const top = platform.height;
+
+      const overlaps =
+        x + playerWidth > left &&
+        x < right;
+
+      if (
+        overlaps &&
+        previousY >= top &&
+        y <= top
+      ) {
+        y = top;
+        velocityY = 0;
+        onSurface = true;
+      }
+    });
   }
 
   player.style.left = x + "px";
-  player.style.bottom = (42 + y) + "px";
+  player.style.bottom = y + "px";
 
-  const pLeft = x;
-  const pRight = x + 30;
-  const pBottom = 42 + y;
-  const pTop = pBottom + 39;
-
+  // Collect crystals.
   crystals.forEach(crystal => {
     if (crystal.collected) return;
 
     const cx = crystal.fraction *
-      (game.clientWidth - 28);
+      (game.clientWidth - 27);
 
     crystal.element.style.left = cx + "px";
+    crystal.element.style.bottom =
+      crystal.height + "px";
 
     const touching =
-      pRight > cx &&
-      pLeft < cx + 27 &&
-      pTop > crystal.height &&
-      pBottom < crystal.height + 27;
+      x + playerWidth > cx &&
+      x < cx + 25 &&
+      y + playerHeight > crystal.height &&
+      y < crystal.height + 25;
 
     if (touching) {
       crystal.collected = true;
       crystal.element.remove();
-      score++;
 
+      score++;
       scoreText.textContent = "💎 " + score + " / 5";
 
       if (score === 5) {
-        finished = true;
-        direction = 0;
         message.textContent =
-          "🎉 Moonlight Mission Complete!";
+          "🏰 All crystals found! Reach the castle door!";
       }
     }
   });
 
+  // Castle unlocks after collecting all crystals.
+  const doorLeft = door.offsetLeft;
+
+  if (
+    score === 5 &&
+    x + playerWidth > doorLeft &&
+    x < doorLeft + door.offsetWidth &&
+    y < 90
+  ) {
+    finished = true;
+    direction = 0;
+    message.textContent =
+      "🎉 Level 1 Complete! Castle Unlocked!";
+    door.style.background = "#ffe59a";
+    door.style.boxShadow = "0 0 25px gold";
+    return;
+  }
+
   requestAnimationFrame(update);
 }
 
-function moveButton(id, value) {
+function moveButton(id,value) {
   const button = document.getElementById(id);
 
-  button.addEventListener("pointerdown", e => {
+  button.addEventListener("pointerdown",e => {
     e.preventDefault();
     button.setPointerCapture(e.pointerId);
     direction = value;
@@ -337,33 +425,19 @@ function moveButton(id, value) {
     if (direction === value) direction = 0;
   }
 
-  button.addEventListener("pointerup", stop);
-  button.addEventListener("pointercancel", stop);
-  button.addEventListener("lostpointercapture", stop);
+  button.addEventListener("pointerup",stop);
+  button.addEventListener("pointercancel",stop);
+  button.addEventListener("lostpointercapture",stop);
 }
 
-moveButton("left", -1);
-moveButton("right", 1);
+moveButton("left",-1);
+moveButton("right",1);
 
 document.getElementById("jump")
-  .addEventListener("pointerdown", e => {
+  .addEventListener("pointerdown",e => {
     e.preventDefault();
     jumpNow();
   });
-
-// Keyboard controls also work.
-document.addEventListener("keydown", e => {
-  if (e.key === "ArrowLeft") direction = -1;
-  if (e.key === "ArrowRight") direction = 1;
-  if (e.key === "ArrowUp" || e.key === " ") jumpNow();
-});
-
-document.addEventListener("keyup", e => {
-  if (e.key === "ArrowLeft" && direction === -1)
-    direction = 0;
-  if (e.key === "ArrowRight" && direction === 1)
-    direction = 0;
-});
 
 update();
 </script>
