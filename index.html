@@ -7,163 +7,50 @@
 <title>The Lost Adventure</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;padding:12px;min-height:100vh;text-align:center;
- font-family:Arial,sans-serif;color:white;
- background:linear-gradient(#080d39,#342078)
-}
+body{margin:0;padding:12px;min-height:100vh;text-align:center;font-family:Arial,sans-serif;color:white;background:linear-gradient(#080d39,#342078)}
 h1{font-size:24px;text-shadow:0 0 12px #a58aff}
-.world{
- display:inline-block;padding:10px 18px;background:#241455;
- border:2px solid #9d8aff;border-radius:25px
-}
-.hud{
- display:flex;justify-content:space-between;gap:8px;
- max-width:600px;margin:16px auto 10px;font-size:12px
-}
-.hud span{
- padding:9px;background:#19134e;
- border:1px solid #9784ff;border-radius:12px
-}
-#game{
- position:relative;width:100%;max-width:600px;height:330px;
- margin:auto;overflow:hidden;border:3px solid #8c77f7;
- border-radius:15px;touch-action:none;
- background:linear-gradient(#091449,#38208c 50%,#a35bc4)
-}
-#game.valley{
- background:linear-gradient(#071439,#244c88 55%,#7155b2)
-}
-#game.forest{
- background:linear-gradient(#071d2c,#174c49 55%,#376b50);
- border-color:#75e6a4
-}
-#game.islands{
- background:linear-gradient(#4089d9,#8acbff 60%,#e0f6ff);
- border-color:#c5f3ff
-}
-#game.castle-level{
- background:linear-gradient(#09051f,#301453 55%,#663b83);
- border-color:#f3ce78
-}
-#game.frozen{
- background:linear-gradient(#122e69,#4b9dc9 55%,#bdeaff);
- border-color:#d7faff
-}
-.moon{
- position:absolute;right:16%;top:22px;width:72px;height:72px;
- border-radius:50%;background:#fff0d8;
- box-shadow:0 0 35px 14px #d8b8ff
-}
-.forest .moon{
- background:#d6ffdc;box-shadow:0 0 35px 14px #8effa8
-}
-.islands .moon{
- background:#fff9ce;box-shadow:0 0 32px 12px white
-}
-.castle-level .moon{
- background:#ffe4a0;box-shadow:0 0 40px 15px #ffcc69
-}
-.frozen .moon{
- background:#efffff;box-shadow:0 0 40px 15px #b4f6ff
-}
-.stars{
- position:absolute;inset:0;font-size:15px;line-height:42px;
- letter-spacing:13px;color:#fff6c2;opacity:.8;
- pointer-events:none
-}
-.castle{
- position:absolute;right:3%;bottom:42px;font-size:58px;opacity:.7
-}
-.decoration{
- position:absolute;bottom:42px;font-size:32px;
- filter:drop-shadow(0 0 8px #ff6bff)
-}
-#ground{
- position:absolute;bottom:0;width:100%;height:42px;
- background:linear-gradient(#49e4b0 0 8px,#27356a 8px);
- box-shadow:0 -5px 13px #58ffdc;z-index:3
-}
-.forest #ground{
- background:linear-gradient(#9bff94 0 8px,#244a39 8px)
-}
-.islands #ground{
- background:linear-gradient(#d9ffde 0 8px,#668da9 8px)
-}
-.castle-level #ground{
- background:linear-gradient(#f7d47a 0 8px,#45315d 8px);
- box-shadow:0 -5px 13px #ffd76c
-}
-.frozen #ground{
- background:linear-gradient(#efffff 0 8px,#548db6 8px);
- box-shadow:0 -5px 16px #d6ffff
-}
-.platform{
- position:absolute;width:24%;height:13px;border-radius:8px;
- background:linear-gradient(#8cfff1,#7254c8);
- border:2px solid #c6ffff;box-shadow:0 0 14px #60ffe8;
- z-index:3
-}
-.forest .platform{
- background:linear-gradient(#b5ff99,#348b5a);
- border-color:#e1ffc5
-}
-.islands .platform{
- background:linear-gradient(white,#83c7d9);
- border-color:#eaffff;box-shadow:0 0 16px white
-}
-.castle-level .platform{
- background:linear-gradient(#ffe7a5,#9470a9);
- border-color:#ffe5a1;box-shadow:0 0 15px #ffc966
-}
-.frozen .platform{
- background:linear-gradient(#fff,#79d9f5);
- border-color:#edffff;box-shadow:0 0 17px #b5ffff
-}
-.bridge{
- position:absolute;bottom:42px;left:69%;width:29%;height:9px;
- background:#d7a9ff;box-shadow:0 0 15px #e5aaff;z-index:4
-}
-#door{
- position:absolute;right:3%;bottom:42px;width:29px;height:43px;
- background:#23113f;border:3px solid #f5d783;
- border-radius:15px 15px 2px 2px;
- box-shadow:0 0 13px #ffe48c;z-index:4
-}
-#player{
- position:absolute;left:12px;bottom:42px;width:29px;height:39px;
- background:#ff9859;border:3px solid #55316d;
- border-radius:10px 10px 7px 7px;z-index:6
-}
-#player::before{
- content:"•  •";position:absolute;top:5px;left:4px;
- color:#392045;font-size:12px
-}
-.crystal{
- position:absolute;font-size:25px;z-index:5;
- filter:drop-shadow(0 0 8px cyan);
- animation:glow 1s infinite alternate
-}
-@keyframes glow{
- from{filter:drop-shadow(0 0 3px cyan)}
- to{filter:drop-shadow(0 0 13px cyan)}
-}
-.controls{
- display:flex;justify-content:center;gap:15px;margin:19px auto
-}
-button{
- width:78px;height:65px;font-size:28px;color:#c6e8ff;
- background:#16144c;border:2px solid #9482ff;
- border-radius:18px;touch-action:manipulation;
- user-select:none;-webkit-user-select:none;cursor:pointer
-}
+.world{display:inline-block;padding:10px 18px;background:#241455;border:2px solid #9d8aff;border-radius:25px}
+.hud{display:flex;justify-content:space-between;gap:8px;max-width:600px;margin:16px auto 10px;font-size:12px}
+.hud span{padding:9px;background:#19134e;border:1px solid #9784ff;border-radius:12px}
+#game{position:relative;width:100%;max-width:600px;height:330px;margin:auto;overflow:hidden;border:3px solid #8c77f7;border-radius:15px;touch-action:none;background:linear-gradient(#091449,#38208c 50%,#a35bc4)}
+#game.valley{background:linear-gradient(#071439,#244c88 55%,#7155b2)}
+#game.forest{background:linear-gradient(#071d2c,#174c49 55%,#376b50);border-color:#75e6a4}
+#game.islands{background:linear-gradient(#4089d9,#8acbff 60%,#e0f6ff);border-color:#c5f3ff}
+#game.castle-level{background:linear-gradient(#09051f,#301453 55%,#663b83);border-color:#f3ce78}
+#game.frozen{background:linear-gradient(#122e69,#4b9dc9 55%,#bdeaff);border-color:#d7faff}
+#game.cave{background:radial-gradient(ellipse at 50% 65%,#51427c,#211936 65%,#080914);border-color:#a78bfa}
+.moon{position:absolute;right:16%;top:22px;width:72px;height:72px;border-radius:50%;background:#fff0d8;box-shadow:0 0 35px 14px #d8b8ff}
+.forest .moon{background:#d6ffdc;box-shadow:0 0 35px 14px #8effa8}
+.islands .moon{background:#fff9ce;box-shadow:0 0 32px 12px white}
+.castle-level .moon{background:#ffe4a0;box-shadow:0 0 40px 15px #ffcc69}
+.frozen .moon{background:#efffff;box-shadow:0 0 40px 15px #b4f6ff}
+.cave .moon{width:48px;height:48px;background:#bb9cff;box-shadow:0 0 35px 18px #8e54e0}
+.stars{position:absolute;inset:0;font-size:15px;line-height:42px;letter-spacing:13px;color:#fff6c2;opacity:.8;pointer-events:none}
+.castle{position:absolute;right:3%;bottom:42px;font-size:58px;opacity:.7}
+.decoration{position:absolute;bottom:42px;font-size:32px;filter:drop-shadow(0 0 8px #ff6bff)}
+#ground{position:absolute;bottom:0;width:100%;height:42px;background:linear-gradient(#49e4b0 0 8px,#27356a 8px);box-shadow:0 -5px 13px #58ffdc;z-index:3}
+.forest #ground{background:linear-gradient(#9bff94 0 8px,#244a39 8px)}
+.islands #ground{background:linear-gradient(#d9ffde 0 8px,#668da9 8px)}
+.castle-level #ground{background:linear-gradient(#f7d47a 0 8px,#45315d 8px);box-shadow:0 -5px 13px #ffd76c}
+.frozen #ground{background:linear-gradient(#efffff 0 8px,#548db6 8px);box-shadow:0 -5px 16px #d6ffff}
+.cave #ground{background:linear-gradient(#a884ef 0 8px,#272139 8px);box-shadow:0 -5px 17px #ac72ff}
+.platform{position:absolute;width:24%;height:13px;border-radius:8px;background:linear-gradient(#8cfff1,#7254c8);border:2px solid #c6ffff;box-shadow:0 0 14px #60ffe8;z-index:3}
+.forest .platform{background:linear-gradient(#b5ff99,#348b5a);border-color:#e1ffc5}
+.islands .platform{background:linear-gradient(white,#83c7d9);border-color:#eaffff;box-shadow:0 0 16px white}
+.castle-level .platform{background:linear-gradient(#ffe7a5,#9470a9);border-color:#ffe5a1;box-shadow:0 0 15px #ffc966}
+.frozen .platform{background:linear-gradient(#fff,#79d9f5);border-color:#edffff;box-shadow:0 0 17px #b5ffff}
+.cave .platform{background:linear-gradient(#b899fa,#51416b);border-color:#d9baff;box-shadow:0 0 18px #a86cff}
+.bridge{position:absolute;bottom:42px;left:69%;width:29%;height:9px;background:#d7a9ff;box-shadow:0 0 15px #e5aaff;z-index:4}
+#door{position:absolute;right:3%;bottom:42px;width:29px;height:43px;background:#23113f;border:3px solid #f5d783;border-radius:15px 15px 2px 2px;box-shadow:0 0 13px #ffe48c;z-index:4}
+#player{position:absolute;left:12px;bottom:42px;width:29px;height:39px;background:#ff9859;border:3px solid #55316d;border-radius:10px 10px 7px 7px;z-index:6}
+#player::before{content:"•  •";position:absolute;top:5px;left:4px;color:#392045;font-size:12px}
+.crystal{position:absolute;font-size:25px;z-index:5;filter:drop-shadow(0 0 8px cyan);animation:glow 1s infinite alternate}
+@keyframes glow{from{filter:drop-shadow(0 0 3px cyan)}to{filter:drop-shadow(0 0 13px cyan)}}
+.controls{display:flex;justify-content:center;gap:15px;margin:19px auto}
+button{width:78px;height:65px;font-size:28px;color:#c6e8ff;background:#16144c;border:2px solid #9482ff;border-radius:18px;touch-action:manipulation;user-select:none;-webkit-user-select:none;cursor:pointer}
 button:active{background:#5945ae}
 #message{min-height:25px;color:#bdfdf5;font-weight:bold}
-.action{
- display:none;width:auto;height:auto;margin:12px auto;
- padding:13px 23px;font-size:17px;background:#6842b5;
- border:2px solid #c5afff
-}
+.action{display:none;width:auto;height:auto;margin:12px auto;padding:13px 23px;font-size:17px;background:#6842b5;border:2px solid #c5afff}
 </style>
 </head>
 <body>
@@ -172,28 +59,28 @@ button:active{background:#5945ae}
 <div class="world">World 1 — Moonlight Kingdom</div>
 
 <div class="hud">
- <span id="levelName">Level 1: The Magical Path</span>
- <span id="score">💎 0 / 5</span>
+<span id="levelName">Level 1: The Magical Path</span>
+<span id="score">💎 0 / 5</span>
 </div>
 
 <div id="game">
- <div class="stars" id="stars">✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦</div>
- <div class="moon"></div>
- <div class="castle" id="castle">🏰</div>
- <div class="decoration" id="decor1" style="left:3%">🍄</div>
- <div class="decoration" id="decor2" style="left:75%">🍄</div>
- <div class="platform" id="p1" style="left:25%;bottom:104px"></div>
- <div class="platform" id="p2" style="left:53%;bottom:151px"></div>
- <div class="bridge"></div>
- <div id="door"></div>
- <div id="ground"></div>
- <div id="player"></div>
+<div class="stars" id="stars">✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦</div>
+<div class="moon"></div>
+<div class="castle" id="castle">🏰</div>
+<div class="decoration" id="decor1" style="left:3%">🍄</div>
+<div class="decoration" id="decor2" style="left:75%">🍄</div>
+<div class="platform" id="p1" style="left:25%;bottom:104px"></div>
+<div class="platform" id="p2" style="left:53%;bottom:151px"></div>
+<div class="bridge"></div>
+<div id="door"></div>
+<div id="ground"></div>
+<div id="player"></div>
 </div>
 
 <div class="controls">
- <button id="left" type="button">◀</button>
- <button id="jump" type="button">⬆</button>
- <button id="right" type="button">▶</button>
+<button id="left" type="button">◀</button>
+<button id="jump" type="button">⬆</button>
+<button id="right" type="button">▶</button>
 </div>
 
 <p id="message">✨ Collect all 5 Moon Crystals!</p>
@@ -223,244 +110,234 @@ const playerWidth=29;
 const playerHeight=39;
 
 const levels={
- 1:{
-  name:"Level 1: The Magical Path",
-  crystals:[[.13,48],[.30,80],[.47,48],[.63,80],[.79,48]]
- },
- 2:{
-  name:"Level 2: Crystal Valley",
-  crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.80,48]]
- },
- 3:{
-  name:"Level 3: The Enchanted Forest",
-  crystals:[[.11,48],[.27,83],[.43,48],[.61,87],[.80,48]]
- },
- 4:{
-  name:"Level 4: Floating Islands",
-  crystals:[[.10,48],[.28,83],[.45,48],[.63,86],[.81,48]]
- },
- 5:{
-  name:"Level 5: Moonlight Castle",
-  crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]
- },
- 6:{
-  name:"Level 6: Frozen Dreams",
-  crystals:[[.11,48],[.28,84],[.45,48],[.62,85],[.80,48]]
- }
+1:{name:"Level 1: The Magical Path",crystals:[[.13,48],[.30,80],[.47,48],[.63,80],[.79,48]]},
+2:{name:"Level 2: Crystal Valley",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.80,48]]},
+3:{name:"Level 3: The Enchanted Forest",crystals:[[.11,48],[.27,83],[.43,48],[.61,87],[.80,48]]},
+4:{name:"Level 4: Floating Islands",crystals:[[.10,48],[.28,83],[.45,48],[.63,86],[.81,48]]},
+5:{name:"Level 5: Moonlight Castle",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]},
+6:{name:"Level 6: Frozen Dreams",crystals:[[.11,48],[.28,84],[.45,48],[.62,85],[.80,48]]},
+7:{name:"Level 7: The Hidden Cave",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]}
 };
 
 function startLevel(number){
- if(!levels[number])return;
+if(!levels[number])return;
 
- level=number;
- x=12;y=42;velocityY=0;direction=0;
- score=0;frame=0;finished=false;onSurface=true;
+level=number;
+x=12;y=42;velocityY=0;direction=0;
+score=0;frame=0;finished=false;onSurface=true;
 
- game.classList.toggle("valley",level===2);
- game.classList.toggle("forest",level===3);
- game.classList.toggle("islands",level===4);
- game.classList.toggle("castle-level",level===5);
- game.classList.toggle("frozen",level===6);
+game.classList.toggle("valley",level===2);
+game.classList.toggle("forest",level===3);
+game.classList.toggle("islands",level===4);
+game.classList.toggle("castle-level",level===5);
+game.classList.toggle("frozen",level===6);
+game.classList.toggle("cave",level===7);
 
- levelName.textContent=levels[level].name;
- scoreText.textContent="💎 0 / 5";
+levelName.textContent=levels[level].name;
+scoreText.textContent="💎 0 / 5";
 
- const messages={
-  1:"✨ Collect all 5 Moon Crystals!",
-  2:"💎 Explore Crystal Valley! Collect 5 crystals!",
-  3:"🌲 Welcome to the Enchanted Forest! Find 5 crystals!",
-  4:"☁️ Welcome to Floating Islands! Find 5 crystals!",
-  5:"🏰 Enter Moonlight Castle! Collect all 5 crystals!",
-  6:"❄️ Welcome to Frozen Dreams! Collect 5 Ice Crystals!"
- };
- message.textContent=messages[level];
+const messages={
+1:"✨ Collect all 5 Moon Crystals!",
+2:"💎 Explore Crystal Valley! Collect 5 crystals!",
+3:"🌲 Welcome to the Enchanted Forest! Find 5 crystals!",
+4:"☁️ Welcome to Floating Islands! Find 5 crystals!",
+5:"🏰 Enter Moonlight Castle! Collect all 5 crystals!",
+6:"❄️ Welcome to Frozen Dreams! Collect 5 Ice Crystals!",
+7:"🦇 Enter The Hidden Cave! Find 5 glowing crystals!"
+};
+message.textContent=messages[level];
 
- const decorations={
-  1:["🍄","🍄","🏰"],
-  2:["🔮","💠","🏛️"],
-  3:["🌳","🌲","🌳"],
-  4:["☁️","🌈","☁️"],
-  5:["🕯️","🔮","🏰"],
-  6:["❄️","⛄","🏔️"]
- };
- document.getElementById("decor1").textContent=decorations[level][0];
- document.getElementById("decor2").textContent=decorations[level][1];
- document.getElementById("castle").textContent=decorations[level][2];
+const decorations={
+1:["🍄","🍄","🏰"],
+2:["🔮","💠","🏛️"],
+3:["🌳","🌲","🌳"],
+4:["☁️","🌈","☁️"],
+5:["🕯️","🔮","🏰"],
+6:["❄️","⛄","🏔️"],
+7:["🪨","🔮","🦇"]
+};
 
- document.getElementById("stars").textContent=
-  level===6
-  ?"❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅"
-  :"✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦";
+document.getElementById("decor1").textContent=decorations[level][0];
+document.getElementById("decor2").textContent=decorations[level][1];
+document.getElementById("castle").textContent=decorations[level][2];
 
- p1.style.left="25%";
- p2.style.left="53%";
+document.getElementById("stars").textContent=
+level===6?"❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅":
+level===7?"✧ ◇ ✦ ◇ ✧ ✦ ◇ ✧ ✦ ◇ ✧":
+"✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦";
 
- door.style.background="#23113f";
- door.style.boxShadow="0 0 13px #ffe48c";
+p1.style.left="25%";
+p2.style.left="53%";
 
- nextButton.style.display="none";
- restartButton.style.display="none";
+door.style.background="#23113f";
+door.style.boxShadow="0 0 13px #ffe48c";
 
- crystals.forEach(c=>c.element.remove());
- crystals=[];
+nextButton.style.display="none";
+restartButton.style.display="none";
 
- levels[level].crystals.forEach(([fraction,height])=>{
-  const element=document.createElement("div");
-  element.className="crystal";
-  element.textContent=level===6?"💠":"💎";
-  game.appendChild(element);
-  crystals.push({element,fraction,height,collected:false});
- });
+crystals.forEach(c=>c.element.remove());
+crystals=[];
 
- player.style.left=x+"px";
- player.style.bottom=y+"px";
+levels[level].crystals.forEach(([fraction,height])=>{
+const element=document.createElement("div");
+element.className="crystal";
+element.textContent=level===6?"💠":level===7?"🔮":"💎";
+game.appendChild(element);
+crystals.push({element,fraction,height,collected:false});
+});
+
+player.style.left=x+"px";
+player.style.bottom=y+"px";
 }
 
 function jumpNow(){
- if(onSurface&&!finished){
-  velocityY=jumpPower;
-  onSurface=false;
- }
+if(onSurface&&!finished){
+velocityY=jumpPower;
+onSurface=false;
+}
 }
 
 function completeLevel(){
- finished=true;
- direction=0;
+finished=true;
+direction=0;
 
- door.style.background="#ffe59a";
- door.style.boxShadow="0 0 25px gold";
+door.style.background="#ffe59a";
+door.style.boxShadow="0 0 25px gold";
 
- if(level<6){
-  message.textContent="🎉 Level "+level+" Complete! Next level unlocked!";
-  nextButton.style.display="block";
- }else{
-  message.textContent="❄️ Frozen Dreams Complete! Level 7 Coming Soon!";
- }
- restartButton.style.display="block";
+if(level<7){
+message.textContent="🎉 Level "+level+" Complete! Next level unlocked!";
+nextButton.style.display="block";
+}else{
+message.textContent="🦇 The Hidden Cave Complete! Level 8 Coming Soon!";
+}
+restartButton.style.display="block";
 }
 
 function update(){
- if(!finished){
-  frame++;
+if(!finished){
+frame++;
 
-  if(level===2){
-   p1.style.left=(25+Math.sin(frame*.025)*7)+"%";
-  }
-  if(level===3){
-   p1.style.left=(25+Math.sin(frame*.022)*8)+"%";
-   p2.style.left=(53+Math.sin(frame*.017)*5)+"%";
-  }
-  if(level===4){
-   p1.style.left=(25+Math.sin(frame*.018)*8)+"%";
-   p2.style.left=(53+Math.sin(frame*.023)*7)+"%";
-  }
-  if(level===5){
-   p1.style.left=(25+Math.sin(frame*.028)*9)+"%";
-   p2.style.left=(53+Math.sin(frame*.024)*7)+"%";
-  }
-  if(level===6){
-   p1.style.left=(25+Math.sin(frame*.021)*9)+"%";
-   p2.style.left=(53+Math.sin(frame*.019)*7)+"%";
-  }
+if(level===2){
+p1.style.left=(25+Math.sin(frame*.025)*7)+"%";
+}
+if(level===3){
+p1.style.left=(25+Math.sin(frame*.022)*8)+"%";
+p2.style.left=(53+Math.sin(frame*.017)*5)+"%";
+}
+if(level===4){
+p1.style.left=(25+Math.sin(frame*.018)*8)+"%";
+p2.style.left=(53+Math.sin(frame*.023)*7)+"%";
+}
+if(level===5){
+p1.style.left=(25+Math.sin(frame*.028)*9)+"%";
+p2.style.left=(53+Math.sin(frame*.024)*7)+"%";
+}
+if(level===6){
+p1.style.left=(25+Math.sin(frame*.021)*9)+"%";
+p2.style.left=(53+Math.sin(frame*.019)*7)+"%";
+}
+if(level===7){
+p1.style.left=(25+Math.sin(frame*.024)*8)+"%";
+p2.style.left=(53+Math.sin(frame*.020)*8)+"%";
+}
 
-  const previousY=y;
-  x+=direction*speed;
-  x=Math.max(0,Math.min(x,game.clientWidth-playerWidth));
+const previousY=y;
+x+=direction*speed;
+x=Math.max(0,Math.min(x,game.clientWidth-playerWidth));
 
-  velocityY-=gravity;
-  y+=velocityY;
-  onSurface=false;
+velocityY-=gravity;
+y+=velocityY;
+onSurface=false;
 
-  if(y<=42){
-   y=42;velocityY=0;onSurface=true;
-  }
+if(y<=42){
+y=42;velocityY=0;onSurface=true;
+}
 
-  const platforms=[
-   {element:p1,height:117},
-   {element:p2,height:164}
-  ];
+const platforms=[
+{element:p1,height:117},
+{element:p2,height:164}
+];
 
-  if(velocityY<=0){
-   platforms.forEach(platform=>{
-    const left=platform.element.offsetLeft;
-    const right=left+platform.element.offsetWidth;
-    const top=platform.height;
+if(velocityY<=0){
+platforms.forEach(platform=>{
+const left=platform.element.offsetLeft;
+const right=left+platform.element.offsetWidth;
+const top=platform.height;
 
-    if(
-     x+playerWidth>left &&
-     x<right &&
-     previousY>=top &&
-     y<=top
-    ){
-     y=top;
-     velocityY=0;
-     onSurface=true;
-    }
-   });
-  }
+if(
+x+playerWidth>left &&
+x<right &&
+previousY>=top &&
+y<=top
+){
+y=top;
+velocityY=0;
+onSurface=true;
+}
+});
+}
 
-  player.style.left=x+"px";
-  player.style.bottom=y+"px";
+player.style.left=x+"px";
+player.style.bottom=y+"px";
 
-  crystals.forEach(crystal=>{
-   if(crystal.collected)return;
+crystals.forEach(crystal=>{
+if(crystal.collected)return;
 
-   const cx=crystal.fraction*(game.clientWidth-27);
-   crystal.element.style.left=cx+"px";
-   crystal.element.style.bottom=crystal.height+"px";
+const cx=crystal.fraction*(game.clientWidth-27);
+crystal.element.style.left=cx+"px";
+crystal.element.style.bottom=crystal.height+"px";
 
-   const touching=
-    x+playerWidth>cx &&
-    x<cx+25 &&
-    y+playerHeight>crystal.height &&
-    y<crystal.height+25;
+const touching=
+x+playerWidth>cx &&
+x<cx+25 &&
+y+playerHeight>crystal.height &&
+y<crystal.height+25;
 
-   if(touching){
-    crystal.collected=true;
-    crystal.element.remove();
-    score++;
-    scoreText.textContent="💎 "+score+" / 5";
+if(touching){
+crystal.collected=true;
+crystal.element.remove();
+score++;
+scoreText.textContent="💎 "+score+" / 5";
 
-    if(score===5)completeLevel();
-   }
-  });
- }
+if(score===5)completeLevel();
+}
+});
+}
 
- requestAnimationFrame(update);
+requestAnimationFrame(update);
 }
 
 function moveButton(id,value){
- const button=document.getElementById(id);
+const button=document.getElementById(id);
 
- button.addEventListener("pointerdown",e=>{
-  e.preventDefault();
-  button.setPointerCapture(e.pointerId);
-  if(!finished)direction=value;
- });
+button.addEventListener("pointerdown",e=>{
+e.preventDefault();
+button.setPointerCapture(e.pointerId);
+if(!finished)direction=value;
+});
 
- function stop(){
-  if(direction===value)direction=0;
- }
- button.addEventListener("pointerup",stop);
- button.addEventListener("pointercancel",stop);
- button.addEventListener("lostpointercapture",stop);
+function stop(){
+if(direction===value)direction=0;
+}
+button.addEventListener("pointerup",stop);
+button.addEventListener("pointercancel",stop);
+button.addEventListener("lostpointercapture",stop);
 }
 
 moveButton("left",-1);
 moveButton("right",1);
 
-document.getElementById("jump")
- .addEventListener("pointerdown",e=>{
-  e.preventDefault();
-  jumpNow();
- });
+document.getElementById("jump").addEventListener("pointerdown",e=>{
+e.preventDefault();
+jumpNow();
+});
 
 nextButton.addEventListener("click",function(){
- if(finished && level<6)startLevel(level+1);
+if(finished && level<7)startLevel(level+1);
 });
 
 restartButton.addEventListener("click",function(){
- startLevel(level);
+startLevel(level);
 });
 
 startLevel(1);
