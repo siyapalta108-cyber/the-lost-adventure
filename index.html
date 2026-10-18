@@ -21,6 +21,7 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 #game.cave{background:radial-gradient(ellipse at 50% 65%,#51427c,#211936 65%,#080914);border-color:#a78bfa}
 #game.starfall{background:linear-gradient(#070d32,#22245f 55%,#7759a9);border-color:#ffe69c}
 #game.dark-kingdom{background:linear-gradient(#08050f,#210d32 48%,#531c46);border-color:#e86b9a}
+#game.final-level{background:radial-gradient(ellipse at 50% 30%,#a36ab5,#3d2474 60%,#100c35);border-color:#ffe69a;box-shadow:0 0 24px #e6ba64}
 .moon{position:absolute;right:16%;top:22px;width:72px;height:72px;border-radius:50%;background:#fff0d8;box-shadow:0 0 35px 14px #d8b8ff}
 .forest .moon{background:#d6ffdc;box-shadow:0 0 35px 14px #8effa8}
 .islands .moon{background:#fff9ce;box-shadow:0 0 32px 12px white}
@@ -29,8 +30,10 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .cave .moon{width:48px;height:48px;background:#bb9cff;box-shadow:0 0 35px 18px #8e54e0}
 .starfall .moon{width:58px;height:58px;background:#fff1a9;box-shadow:0 0 40px 15px #f7c66e}
 .dark-kingdom .moon{width:65px;height:65px;background:#d85b8b;box-shadow:0 0 38px 16px #9d2859}
+.final-level .moon{width:90px;height:90px;right:12%;background:#fff4b4;box-shadow:0 0 48px 23px #ffdc80;animation:moonGlow 2s infinite alternate}
+@keyframes moonGlow{to{box-shadow:0 0 65px 32px #ffdc80}}
 .stars{position:absolute;inset:0;font-size:15px;line-height:42px;letter-spacing:13px;color:#fff6c2;opacity:.8;pointer-events:none}
-.starfall .stars{animation:twinkle 1.5s infinite alternate}
+.starfall .stars,.final-level .stars{animation:twinkle 1.5s infinite alternate}
 @keyframes twinkle{from{opacity:.45}to{opacity:1}}
 .castle{position:absolute;right:3%;bottom:42px;font-size:58px;opacity:.7}
 .decoration{position:absolute;bottom:42px;font-size:32px;filter:drop-shadow(0 0 8px #ff6bff)}
@@ -42,6 +45,7 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .cave #ground{background:linear-gradient(#a884ef 0 8px,#272139 8px);box-shadow:0 -5px 17px #ac72ff}
 .starfall #ground{background:linear-gradient(#ffe99b 0 8px,#34335d 8px);box-shadow:0 -5px 17px #ffdc75}
 .dark-kingdom #ground{background:linear-gradient(#f17caa 0 8px,#21182f 8px);box-shadow:0 -5px 17px #e33e86}
+.final-level #ground{background:linear-gradient(#fff1a3 0 8px,#5b417a 8px);box-shadow:0 -5px 20px #ffe278}
 .platform{position:absolute;width:24%;height:13px;border-radius:8px;background:linear-gradient(#8cfff1,#7254c8);border:2px solid #c6ffff;box-shadow:0 0 14px #60ffe8;z-index:3}
 .forest .platform{background:linear-gradient(#b5ff99,#348b5a);border-color:#e1ffc5}
 .islands .platform{background:linear-gradient(white,#83c7d9);border-color:#eaffff;box-shadow:0 0 16px white}
@@ -50,6 +54,7 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .cave .platform{background:linear-gradient(#b899fa,#51416b);border-color:#d9baff;box-shadow:0 0 18px #a86cff}
 .starfall .platform{background:linear-gradient(#fff5b5,#bb85d5);border-color:#ffedab;box-shadow:0 0 18px #ffe18a}
 .dark-kingdom .platform{background:linear-gradient(#ff9abb,#62314d);border-color:#ffb4d0;box-shadow:0 0 18px #ff4e9b}
+.final-level .platform{background:linear-gradient(#fff4b5,#bc87e3);border-color:#fff1c2;box-shadow:0 0 22px #ffdf72}
 .bridge{position:absolute;bottom:42px;left:69%;width:29%;height:9px;background:#d7a9ff;box-shadow:0 0 15px #e5aaff;z-index:4}
 #door{position:absolute;right:3%;bottom:42px;width:29px;height:43px;background:#23113f;border:3px solid #f5d783;border-radius:15px 15px 2px 2px;box-shadow:0 0 13px #ffe48c;z-index:4}
 #player{position:absolute;left:12px;bottom:42px;width:29px;height:39px;background:#ff9859;border:3px solid #55316d;border-radius:10px 10px 7px 7px;z-index:6}
@@ -61,6 +66,10 @@ button{width:78px;height:65px;font-size:28px;color:#c6e8ff;background:#16144c;bo
 button:active{background:#5945ae}
 #message{min-height:25px;color:#bdfdf5;font-weight:bold}
 .action{display:none;width:auto;height:auto;margin:12px auto;padding:13px 23px;font-size:17px;background:#6842b5;border:2px solid #c5afff}
+#victory{display:none;position:absolute;inset:35px 15px 50px;background:#1a1048ed;border:3px solid #ffe69a;border-radius:20px;z-index:10;padding:18px 8px;box-shadow:0 0 30px #ffe69a}
+#victory h2{font-size:29px;color:#ffe69a;margin:12px 0}
+#victory p{font-size:15px}
+#playAgain{width:auto;height:auto;padding:12px 18px;font-size:16px;background:#7051a8}
 </style>
 </head>
 <body>
@@ -82,6 +91,12 @@ button:active{background:#5945ae}
 <div id="door"></div>
 <div id="ground"></div>
 <div id="player"></div>
+<div id="victory">
+<h2>🏆 YOU WON! 🌙</h2>
+<p>All 10 levels completed!</p>
+<p>✨ You restored the Final Moon Crystal! 💎</p>
+<button id="playAgain" type="button">↻ Play Again</button>
+</div>
 </div>
 <div class="controls">
 <button id="left" type="button">◀</button>
@@ -100,6 +115,7 @@ const message=document.getElementById("message");
 const levelName=document.getElementById("levelName");
 const nextButton=document.getElementById("next");
 const restartButton=document.getElementById("restart");
+const victory=document.getElementById("victory");
 const door=document.getElementById("door");
 const p1=document.getElementById("p1");
 const p2=document.getElementById("p2");
@@ -119,7 +135,8 @@ const levels={
 6:{name:"Level 6: Frozen Dreams",crystals:[[.11,48],[.28,84],[.45,48],[.62,85],[.80,48]]},
 7:{name:"Level 7: The Hidden Cave",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]},
 8:{name:"Level 8: Starfall Valley",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]},
-9:{name:"Level 9: The Dark Kingdom",crystals:[[.11,48],[.28,84],[.45,48],[.63,85],[.81,48]]}
+9:{name:"Level 9: The Dark Kingdom",crystals:[[.11,48],[.28,84],[.45,48],[.63,85],[.81,48]]},
+10:{name:"Level 10: The Final Moon Crystal",crystals:[[.11,48],[.28,84],[.45,48],[.63,85],[.81,48]]}
 };
 
 function startLevel(number){
@@ -128,7 +145,7 @@ level=number;
 x=12;y=42;velocityY=0;direction=0;
 score=0;frame=0;finished=false;onSurface=true;
 
-const themes={2:"valley",3:"forest",4:"islands",5:"castle-level",6:"frozen",7:"cave",8:"starfall",9:"dark-kingdom"};
+const themes={2:"valley",3:"forest",4:"islands",5:"castle-level",6:"frozen",7:"cave",8:"starfall",9:"dark-kingdom",10:"final-level"};
 Object.values(themes).forEach(t=>game.classList.remove(t));
 if(themes[level])game.classList.add(themes[level]);
 
@@ -144,7 +161,8 @@ const messages={
 6:"❄️ Welcome to Frozen Dreams! Collect 5 Ice Crystals!",
 7:"🦇 Enter The Hidden Cave! Find 5 glowing crystals!",
 8:"🌠 Welcome to Starfall Valley! Collect 5 Star Crystals!",
-9:"🌑 Enter The Dark Kingdom! Find all 5 Red Crystals!"
+9:"🌑 Enter The Dark Kingdom! Find all 5 Red Crystals!",
+10:"🌙 Final Mission! Collect all 5 Moon Crystals to restore the kingdom!"
 };
 message.textContent=messages[level];
 
@@ -157,7 +175,8 @@ const decorations={
 6:["❄️","⛄","🏔️"],
 7:["🪨","🔮","🦇"],
 8:["🌠","⭐","🌌"],
-9:["🕯️","🦇","🏰"]
+9:["🕯️","🦇","🏰"],
+10:["✨","🌟","🏰"]
 };
 document.getElementById("decor1").textContent=decorations[level][0];
 document.getElementById("decor2").textContent=decorations[level][1];
@@ -168,6 +187,7 @@ level===6?"❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅":
 level===7?"✧ ◇ ✦ ◇ ✧ ✦ ◇ ✧ ✦ ◇ ✧":
 level===8?"✦ 🌟 ⋆ ✧ ✦ ⋆ 🌟 ✧ ✦ ⋆ ✧":
 level===9?"✦ ⋆ ✧ 🦇 ✦ ⋆ ✧ ✦ ⋆ ✧":
+level===10?"✦ ✨ 🌟 ✦ ✨ 🌟 ✦ ✨ 🌟":
 "✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦";
 
 p1.style.left="25%";
@@ -176,13 +196,14 @@ door.style.background="#23113f";
 door.style.boxShadow="0 0 13px #ffe48c";
 nextButton.style.display="none";
 restartButton.style.display="none";
+victory.style.display="none";
 
 crystals.forEach(c=>c.element.remove());
 crystals=[];
 levels[level].crystals.forEach(([fraction,height])=>{
 const element=document.createElement("div");
 element.className="crystal";
-element.textContent=level===6?"💠":level===7?"🔮":level===8?"🌟":level===9?"🔴":"💎";
+element.textContent=level===6?"💠":level===7?"🔮":level===8?"🌟":level===9?"🔴":level===10?"🌙":"💎";
 game.appendChild(element);
 crystals.push({element,fraction,height,collected:false});
 });
@@ -202,13 +223,15 @@ finished=true;
 direction=0;
 door.style.background="#ffe59a";
 door.style.boxShadow="0 0 25px gold";
-if(level<9){
+
+if(level<10){
 message.textContent="🎉 Level "+level+" Complete! Next level unlocked!";
 nextButton.style.display="block";
-}else{
-message.textContent="🌑 The Dark Kingdom Complete! Level 10 Coming Soon!";
-}
 restartButton.style.display="block";
+}else{
+message.textContent="🏆 Congratulations! You completed The Lost Adventure!";
+victory.style.display="block";
+}
 }
 
 function update(){
@@ -222,7 +245,8 @@ const movement={
 6:[.021,9,.019,7],
 7:[.024,8,.020,8],
 8:[.027,9,.021,8],
-9:[.030,10,.026,9]
+9:[.030,10,.026,9],
+10:[.032,10,.028,9]
 };
 if(movement[level]){
 const [f1,a1,f2,a2]=movement[level];
@@ -295,9 +319,10 @@ document.getElementById("jump").addEventListener("pointerdown",e=>{
 e.preventDefault();jumpNow();
 });
 nextButton.addEventListener("click",()=>{
-if(finished&&level<9)startLevel(level+1);
+if(finished&&level<10)startLevel(level+1);
 });
 restartButton.addEventListener("click",()=>startLevel(level));
+document.getElementById("playAgain").addEventListener("click",()=>startLevel(1));
 
 startLevel(1);
 requestAnimationFrame(update);
