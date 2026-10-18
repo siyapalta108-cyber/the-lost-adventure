@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Lost Adventure</title>
 <style>
 *{box-sizing:border-box}
@@ -46,6 +46,10 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
  background:linear-gradient(#09051f,#301453 55%,#663b83);
  border-color:#f3ce78
 }
+#game.frozen{
+ background:linear-gradient(#122e69,#4b9dc9 55%,#bdeaff);
+ border-color:#d7faff
+}
 .moon{
  position:absolute;right:16%;top:22px;width:72px;height:72px;
  border-radius:50%;background:#fff0d8;
@@ -59,6 +63,9 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 }
 .castle-level .moon{
  background:#ffe4a0;box-shadow:0 0 40px 15px #ffcc69
+}
+.frozen .moon{
+ background:#efffff;box-shadow:0 0 40px 15px #b4f6ff
 }
 .stars{
  position:absolute;inset:0;font-size:15px;line-height:42px;
@@ -87,6 +94,10 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
  background:linear-gradient(#f7d47a 0 8px,#45315d 8px);
  box-shadow:0 -5px 13px #ffd76c
 }
+.frozen #ground{
+ background:linear-gradient(#efffff 0 8px,#548db6 8px);
+ box-shadow:0 -5px 16px #d6ffff
+}
 .platform{
  position:absolute;width:24%;height:13px;border-radius:8px;
  background:linear-gradient(#8cfff1,#7254c8);
@@ -104,6 +115,10 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .castle-level .platform{
  background:linear-gradient(#ffe7a5,#9470a9);
  border-color:#ffe5a1;box-shadow:0 0 15px #ffc966
+}
+.frozen .platform{
+ background:linear-gradient(#fff,#79d9f5);
+ border-color:#edffff;box-shadow:0 0 17px #b5ffff
 }
 .bridge{
  position:absolute;bottom:42px;left:69%;width:29%;height:9px;
@@ -143,9 +158,7 @@ button{
  user-select:none;-webkit-user-select:none;cursor:pointer
 }
 button:active{background:#5945ae}
-#message{
- min-height:25px;color:#bdfdf5;font-weight:bold
-}
+#message{min-height:25px;color:#bdfdf5;font-weight:bold}
 .action{
  display:none;width:auto;height:auto;margin:12px auto;
  padding:13px 23px;font-size:17px;background:#6842b5;
@@ -164,7 +177,7 @@ button:active{background:#5945ae}
 </div>
 
 <div id="game">
- <div class="stars">✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦</div>
+ <div class="stars" id="stars">✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦</div>
  <div class="moon"></div>
  <div class="castle" id="castle">🏰</div>
  <div class="decoration" id="decor1" style="left:3%">🍄</div>
@@ -212,38 +225,27 @@ const playerHeight=39;
 const levels={
  1:{
   name:"Level 1: The Magical Path",
-  crystals:[
-   [0.13,48],[0.30,80],[0.47,48],
-   [0.63,80],[0.79,48]
-  ]
+  crystals:[[.13,48],[.30,80],[.47,48],[.63,80],[.79,48]]
  },
  2:{
   name:"Level 2: Crystal Valley",
-  crystals:[
-   [0.12,48],[0.29,84],[0.46,48],
-   [0.63,85],[0.80,48]
-  ]
+  crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.80,48]]
  },
  3:{
   name:"Level 3: The Enchanted Forest",
-  crystals:[
-   [0.11,48],[0.27,83],[0.43,48],
-   [0.61,87],[0.80,48]
-  ]
+  crystals:[[.11,48],[.27,83],[.43,48],[.61,87],[.80,48]]
  },
  4:{
   name:"Level 4: Floating Islands",
-  crystals:[
-   [0.10,48],[0.28,83],[0.45,48],
-   [0.63,86],[0.81,48]
-  ]
+  crystals:[[.10,48],[.28,83],[.45,48],[.63,86],[.81,48]]
  },
  5:{
   name:"Level 5: Moonlight Castle",
-  crystals:[
-   [0.12,48],[0.29,84],[0.46,48],
-   [0.63,85],[0.81,48]
-  ]
+  crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]
+ },
+ 6:{
+  name:"Level 6: Frozen Dreams",
+  crystals:[[.11,48],[.28,84],[.45,48],[.62,85],[.80,48]]
  }
 };
 
@@ -258,6 +260,7 @@ function startLevel(number){
  game.classList.toggle("forest",level===3);
  game.classList.toggle("islands",level===4);
  game.classList.toggle("castle-level",level===5);
+ game.classList.toggle("frozen",level===6);
 
  levelName.textContent=levels[level].name;
  scoreText.textContent="💎 0 / 5";
@@ -267,7 +270,8 @@ function startLevel(number){
   2:"💎 Explore Crystal Valley! Collect 5 crystals!",
   3:"🌲 Welcome to the Enchanted Forest! Find 5 crystals!",
   4:"☁️ Welcome to Floating Islands! Find 5 crystals!",
-  5:"🏰 Enter Moonlight Castle! Collect all 5 crystals!"
+  5:"🏰 Enter Moonlight Castle! Collect all 5 crystals!",
+  6:"❄️ Welcome to Frozen Dreams! Collect 5 Ice Crystals!"
  };
  message.textContent=messages[level];
 
@@ -276,11 +280,17 @@ function startLevel(number){
   2:["🔮","💠","🏛️"],
   3:["🌳","🌲","🌳"],
   4:["☁️","🌈","☁️"],
-  5:["🕯️","🔮","🏰"]
+  5:["🕯️","🔮","🏰"],
+  6:["❄️","⛄","🏔️"]
  };
  document.getElementById("decor1").textContent=decorations[level][0];
  document.getElementById("decor2").textContent=decorations[level][1];
  document.getElementById("castle").textContent=decorations[level][2];
+
+ document.getElementById("stars").textContent=
+  level===6
+  ?"❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅"
+  :"✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦";
 
  p1.style.left="25%";
  p2.style.left="53%";
@@ -297,7 +307,7 @@ function startLevel(number){
  levels[level].crystals.forEach(([fraction,height])=>{
   const element=document.createElement("div");
   element.className="crystal";
-  element.textContent="💎";
+  element.textContent=level===6?"💠":"💎";
   game.appendChild(element);
   crystals.push({element,fraction,height,collected:false});
  });
@@ -320,11 +330,11 @@ function completeLevel(){
  door.style.background="#ffe59a";
  door.style.boxShadow="0 0 25px gold";
 
- if(level<5){
+ if(level<6){
   message.textContent="🎉 Level "+level+" Complete! Next level unlocked!";
   nextButton.style.display="block";
  }else{
-  message.textContent="🏆 Moonlight Castle Complete! Level 6 Coming Soon!";
+  message.textContent="❄️ Frozen Dreams Complete! Level 7 Coming Soon!";
  }
  restartButton.style.display="block";
 }
@@ -334,19 +344,23 @@ function update(){
   frame++;
 
   if(level===2){
-   p1.style.left=(25+Math.sin(frame*0.025)*7)+"%";
+   p1.style.left=(25+Math.sin(frame*.025)*7)+"%";
   }
   if(level===3){
-   p1.style.left=(25+Math.sin(frame*0.022)*8)+"%";
-   p2.style.left=(53+Math.sin(frame*0.017)*5)+"%";
+   p1.style.left=(25+Math.sin(frame*.022)*8)+"%";
+   p2.style.left=(53+Math.sin(frame*.017)*5)+"%";
   }
   if(level===4){
-   p1.style.left=(25+Math.sin(frame*0.018)*8)+"%";
-   p2.style.left=(53+Math.sin(frame*0.023)*7)+"%";
+   p1.style.left=(25+Math.sin(frame*.018)*8)+"%";
+   p2.style.left=(53+Math.sin(frame*.023)*7)+"%";
   }
   if(level===5){
-   p1.style.left=(25+Math.sin(frame*0.028)*9)+"%";
-   p2.style.left=(53+Math.sin(frame*0.024)*7)+"%";
+   p1.style.left=(25+Math.sin(frame*.028)*9)+"%";
+   p2.style.left=(53+Math.sin(frame*.024)*7)+"%";
+  }
+  if(level===6){
+   p1.style.left=(25+Math.sin(frame*.021)*9)+"%";
+   p2.style.left=(53+Math.sin(frame*.019)*7)+"%";
   }
 
   const previousY=y;
@@ -442,7 +456,7 @@ document.getElementById("jump")
  });
 
 nextButton.addEventListener("click",function(){
- if(finished && level<5)startLevel(level+1);
+ if(finished && level<6)startLevel(level+1);
 });
 
 restartButton.addEventListener("click",function(){
