@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova | The Lost Adventure</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Georgia, serif;
+  color: white;
+  text-align: center;
+  background:
+    linear-gradient(160deg, #08071c, #30205b, #101936);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 440px;
+  padding: 22px;
+  border: 2px solid #d8baff;
+  border-radius: 24px;
+  background: rgba(24, 16, 57, 0.85);
+  box-shadow: 0 0 35px #a46cff66;
+}
+
+h1 {
+  color: #ffe4a3;
+  font-size: 27px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #d9c5ff;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+
+.nova {
+  width: 100%;
+  max-height: 370px;
+  object-fit: contain;
+  margin: 16px 0;
+  border-radius: 15px;
+}
+
+h2 {
+  color: #f5d6ff;
+  margin: 5px;
+}
+
+p {
+  line-height: 1.6;
+  color: #e3dafa;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 14px;
+  border: 1px solid #fff0b8;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #7144dc, #b078ed);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.back {
+  display: block;
+  color: #d9c5ff;
+  margin-top: 18px;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+  <h1>THE LOST ADVENTURE</h1>
+  <div class="subtitle">CHARACTER SELECTION</div>
+
+  <img
+    class="nova"
+    src="93E3387E-BC6C-4B72-8022-3C990C9B9F27.png"
+    alt="Nova the Star Explorer"
+  >
+
+  <h2>⭐ NOVA</h2>
+  <p>The Star Explorer</p>
+  <p>
+    Guardian of the Moonlight Kingdom.
+    Collect magical crystals and discover
+    the secrets of ten enchanted worlds.
+  </p>
+
+  <button onclick="startAdventure()">
+    ✨ START ADVENTURE
+  </button>
+
+  <a class="back" href="menu.html">← Back to Menu</a>
+</div>
+
+<script>
+function startAdventure() {
+  localStorage.setItem("selectedCharacter", "Nova");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
