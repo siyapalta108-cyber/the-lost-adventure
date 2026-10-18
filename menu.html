@@ -1,208 +1,151 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Lost Adventure 2.0</title>
+
+<title>The Lost Adventure | Mehak</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+ box-sizing:border-box;
+}
 
 body{
-margin:0;
-background:#090d29;
-color:white;
-font-family:Georgia,serif;
+ margin:0;
+ min-height:100dvh;
+ padding:25px 20px;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ font-family:Georgia,serif;
+ text-align:center;
+ color:white;
+ background:
+ radial-gradient(circle at 50% 20%,#63449b,#211744 50%,#080b22);
 }
 
 .menu{
-min-height:100dvh;
-background:
-linear-gradient(180deg,rgba(5,7,30,.12),rgba(5,7,30,.88)),
-url("AD97BCFE-D54A-43C9-B322-980E6873B72C.png") center/cover;
-display:flex;
-align-items:center;
-justify-content:flex-end;
-flex-direction:column;
-text-align:center;
-padding:30px 18px 55px;
+ width:100%;
+ max-width:440px;
+ padding:30px 20px;
+ border:2px solid #e9c986;
+ border-radius:25px;
+ background:#171236cc;
+ box-shadow:0 0 35px #a16aff77;
+}
+
+.moon{
+ font-size:55px;
+ animation:glow 2s infinite alternate;
 }
 
 h1{
-font-size:clamp(32px,9vw,65px);
-color:#ffe6a1;
-text-shadow:0 3px 15px #000;
-margin:0;
+ color:#ffe3a1;
+ font-size:37px;
+ line-height:1.2;
+ text-shadow:0 0 18px #b68aff;
 }
 
-p{
-color:#e5dcff;
-text-shadow:0 2px 8px #000;
+.subtitle{
+ color:#e4d3ff;
+ line-height:1.7;
+ margin-bottom:30px;
 }
 
-.buttons{
-width:min(340px,100%);
-display:grid;
-gap:13px;
-margin-top:25px;
+.btn{
+ display:block;
+ width:100%;
+ margin-top:15px;
+ padding:17px 10px;
+ border:2px solid #e9ca88;
+ border-radius:25px;
+ background:linear-gradient(90deg,#56379c,#9465d4);
+ color:white;
+ text-decoration:none;
+ font:bold 16px Georgia,serif;
+ cursor:pointer;
 }
 
-button,.play{
-border:2px solid #d6b66c;
-border-radius:13px;
-padding:15px;
-background:linear-gradient(135deg,#5033a2,#20285f);
-color:white;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-text-decoration:none;
-box-shadow:0 5px 20px #0008;
+.primary{
+ background:linear-gradient(90deg,#936029,#b18a4c,#6240a7);
+ box-shadow:0 0 18px #f5c66a55;
 }
 
-.play{
-background:linear-gradient(135deg,#a47530,#5b328e);
+.footer{
+ margin-top:30px;
+ color:#d9c5ff;
+ font-size:14px;
 }
 
-.music{
-background:linear-gradient(135deg,#264b73,#33245c);
+@keyframes glow{
+ from{filter:drop-shadow(0 0 5px #fff)}
+ to{filter:drop-shadow(0 0 22px #d7aaff)}
 }
-
-.panel{
-display:none;
-position:fixed;
-inset:0;
-background:#090d29f5;
-padding:35px 18px;
-overflow:auto;
-text-align:center;
-z-index:3;
-}
-
-.panel h2{color:#ffe6a1}
-
-.levels{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-max-width:430px;
-margin:25px auto;
-}
-
-.levels a{
-padding:16px 8px;
-border:1px solid #c8a765;
-border-radius:12px;
-background:#292557;
-color:white;
-text-decoration:none;
-}
-
-.back{margin-top:25px}
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" loop preload="none">
-<source src="djartmusic-the-return-of-the-8-bit-era-301292.mp3" type="audio/mpeg">
-</audio>
-
 <main class="menu">
+
+<div class="moon">🌙✨</div>
 
 <h1>The Lost Adventure</h1>
 
-<p>Find the Moon Crystals — Save the Kingdom</p>
+<p class="subtitle">
+Find the Moon Crystals<br>
+Save the Kingdom
+</p>
 
-<div class="buttons">
-
-<a class="play" href="index.html">
+<a class="btn primary" href="character.html">
 ✦ START GAME ✦
 </a>
 
-<button onclick="show('levels')">
-LEVEL SELECTION
-</button>
+<a class="btn" href="nova-game-v2.html">
+🎮 CONTINUE ADVENTURE
+</a>
 
-<button onclick="show('help')">
-HOW TO PLAY
-</button>
+<a class="btn" href="how-to-play.html">
+📖 HOW TO PLAY
+</a>
 
-<button class="music" id="musicButton" onclick="toggleMusic()">
+<a class="btn" href="credits.html">
+⭐ GAME CREDITS
+</a>
+
+<button class="btn" id="musicButton" onclick="toggleMusic()">
 🎵 PLAY MUSIC
 </button>
 
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="footer">
+Created by Mehak 💜<br>
+Moonlight Kingdom
 </div>
+
 </main>
 
-<section class="panel" id="levels">
-
-<h2>🌙 Choose Your Adventure</h2>
-
-<div class="levels">
-<a href="index.html">1. Magical Path</a>
-<a href="index.html">2. Crystal Valley</a>
-<a href="index.html">3. Enchanted Forest</a>
-<a href="index.html">4. Floating Islands</a>
-<a href="index.html">5. Moonlight Castle</a>
-<a href="index.html">6. Frozen Dreams</a>
-<a href="index.html">7. Hidden Cave</a>
-<a href="index.html">8. Starfall Valley</a>
-<a href="index.html">9. Dark Kingdom</a>
-<a href="index.html">10. Final Moon Crystal</a>
-</div>
-
-<p>Level selection currently starts the existing game from Level 1.</p>
-
-<button class="back" onclick="hide()">← BACK</button>
-
-</section>
-
-<section class="panel" id="help">
-
-<h2>✨ How To Play</h2>
-
-<p>Move left and right, jump across platforms and collect all five crystals.</p>
-
-<p>Reach the castle to complete your mission and continue your adventure!</p>
-
-<button class="back" onclick="hide()">← BACK</button>
-
-</section>
-
 <script>
-
-const music=document.getElementById("bgMusic");
+const music=document.getElementById("music");
 const musicButton=document.getElementById("musicButton");
 
-music.volume=0.35;
-
-async function toggleMusic(){
-
-if(music.paused){
-try{
-await music.play();
-musicButton.textContent="🔊 MUSIC ON";
-}catch(error){
-musicButton.textContent="🎵 TAP TO PLAY MUSIC";
+function toggleMusic(){
+ if(music.paused){
+  music.play().then(()=>{
+   musicButton.textContent="⏸ PAUSE MUSIC";
+  }).catch(()=>{
+   musicButton.textContent="🎵 MUSIC UNAVAILABLE";
+  });
+ }else{
+  music.pause();
+  musicButton.textContent="🎵 PLAY MUSIC";
+ }
 }
-}else{
-music.pause();
-musicButton.textContent="🔇 MUSIC OFF";
-}
-
-}
-
-function show(id){
-document.getElementById(id).style.display="block";
-}
-
-function hide(){
-document.querySelectorAll(".panel").forEach(
-panel=>panel.style.display="none"
-);
-}
-
 </script>
 
 </body>
