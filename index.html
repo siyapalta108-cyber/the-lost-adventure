@@ -19,13 +19,17 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 #game.castle-level{background:linear-gradient(#09051f,#301453 55%,#663b83);border-color:#f3ce78}
 #game.frozen{background:linear-gradient(#122e69,#4b9dc9 55%,#bdeaff);border-color:#d7faff}
 #game.cave{background:radial-gradient(ellipse at 50% 65%,#51427c,#211936 65%,#080914);border-color:#a78bfa}
+#game.starfall{background:linear-gradient(#070d32,#22245f 55%,#7759a9);border-color:#ffe69c}
 .moon{position:absolute;right:16%;top:22px;width:72px;height:72px;border-radius:50%;background:#fff0d8;box-shadow:0 0 35px 14px #d8b8ff}
 .forest .moon{background:#d6ffdc;box-shadow:0 0 35px 14px #8effa8}
 .islands .moon{background:#fff9ce;box-shadow:0 0 32px 12px white}
 .castle-level .moon{background:#ffe4a0;box-shadow:0 0 40px 15px #ffcc69}
 .frozen .moon{background:#efffff;box-shadow:0 0 40px 15px #b4f6ff}
 .cave .moon{width:48px;height:48px;background:#bb9cff;box-shadow:0 0 35px 18px #8e54e0}
+.starfall .moon{width:58px;height:58px;background:#fff1a9;box-shadow:0 0 40px 15px #f7c66e}
 .stars{position:absolute;inset:0;font-size:15px;line-height:42px;letter-spacing:13px;color:#fff6c2;opacity:.8;pointer-events:none}
+.starfall .stars{animation:twinkle 1.5s infinite alternate}
+@keyframes twinkle{from{opacity:.45}to{opacity:1}}
 .castle{position:absolute;right:3%;bottom:42px;font-size:58px;opacity:.7}
 .decoration{position:absolute;bottom:42px;font-size:32px;filter:drop-shadow(0 0 8px #ff6bff)}
 #ground{position:absolute;bottom:0;width:100%;height:42px;background:linear-gradient(#49e4b0 0 8px,#27356a 8px);box-shadow:0 -5px 13px #58ffdc;z-index:3}
@@ -34,12 +38,14 @@ h1{font-size:24px;text-shadow:0 0 12px #a58aff}
 .castle-level #ground{background:linear-gradient(#f7d47a 0 8px,#45315d 8px);box-shadow:0 -5px 13px #ffd76c}
 .frozen #ground{background:linear-gradient(#efffff 0 8px,#548db6 8px);box-shadow:0 -5px 16px #d6ffff}
 .cave #ground{background:linear-gradient(#a884ef 0 8px,#272139 8px);box-shadow:0 -5px 17px #ac72ff}
+.starfall #ground{background:linear-gradient(#ffe99b 0 8px,#34335d 8px);box-shadow:0 -5px 17px #ffdc75}
 .platform{position:absolute;width:24%;height:13px;border-radius:8px;background:linear-gradient(#8cfff1,#7254c8);border:2px solid #c6ffff;box-shadow:0 0 14px #60ffe8;z-index:3}
 .forest .platform{background:linear-gradient(#b5ff99,#348b5a);border-color:#e1ffc5}
 .islands .platform{background:linear-gradient(white,#83c7d9);border-color:#eaffff;box-shadow:0 0 16px white}
 .castle-level .platform{background:linear-gradient(#ffe7a5,#9470a9);border-color:#ffe5a1;box-shadow:0 0 15px #ffc966}
 .frozen .platform{background:linear-gradient(#fff,#79d9f5);border-color:#edffff;box-shadow:0 0 17px #b5ffff}
 .cave .platform{background:linear-gradient(#b899fa,#51416b);border-color:#d9baff;box-shadow:0 0 18px #a86cff}
+.starfall .platform{background:linear-gradient(#fff5b5,#bb85d5);border-color:#ffedab;box-shadow:0 0 18px #ffe18a}
 .bridge{position:absolute;bottom:42px;left:69%;width:29%;height:9px;background:#d7a9ff;box-shadow:0 0 15px #e5aaff;z-index:4}
 #door{position:absolute;right:3%;bottom:42px;width:29px;height:43px;background:#23113f;border:3px solid #f5d783;border-radius:15px 15px 2px 2px;box-shadow:0 0 13px #ffe48c;z-index:4}
 #player{position:absolute;left:12px;bottom:42px;width:29px;height:39px;background:#ff9859;border:3px solid #55316d;border-radius:10px 10px 7px 7px;z-index:6}
@@ -116,7 +122,8 @@ const levels={
 4:{name:"Level 4: Floating Islands",crystals:[[.10,48],[.28,83],[.45,48],[.63,86],[.81,48]]},
 5:{name:"Level 5: Moonlight Castle",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]},
 6:{name:"Level 6: Frozen Dreams",crystals:[[.11,48],[.28,84],[.45,48],[.62,85],[.80,48]]},
-7:{name:"Level 7: The Hidden Cave",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]}
+7:{name:"Level 7: The Hidden Cave",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]},
+8:{name:"Level 8: Starfall Valley",crystals:[[.12,48],[.29,84],[.46,48],[.63,85],[.81,48]]}
 };
 
 function startLevel(number){
@@ -132,6 +139,7 @@ game.classList.toggle("islands",level===4);
 game.classList.toggle("castle-level",level===5);
 game.classList.toggle("frozen",level===6);
 game.classList.toggle("cave",level===7);
+game.classList.toggle("starfall",level===8);
 
 levelName.textContent=levels[level].name;
 scoreText.textContent="💎 0 / 5";
@@ -143,7 +151,8 @@ const messages={
 4:"☁️ Welcome to Floating Islands! Find 5 crystals!",
 5:"🏰 Enter Moonlight Castle! Collect all 5 crystals!",
 6:"❄️ Welcome to Frozen Dreams! Collect 5 Ice Crystals!",
-7:"🦇 Enter The Hidden Cave! Find 5 glowing crystals!"
+7:"🦇 Enter The Hidden Cave! Find 5 glowing crystals!",
+8:"🌠 Welcome to Starfall Valley! Collect 5 Star Crystals!"
 };
 message.textContent=messages[level];
 
@@ -154,7 +163,8 @@ const decorations={
 4:["☁️","🌈","☁️"],
 5:["🕯️","🔮","🏰"],
 6:["❄️","⛄","🏔️"],
-7:["🪨","🔮","🦇"]
+7:["🪨","🔮","🦇"],
+8:["🌠","⭐","🌌"]
 };
 
 document.getElementById("decor1").textContent=decorations[level][0];
@@ -164,6 +174,7 @@ document.getElementById("castle").textContent=decorations[level][2];
 document.getElementById("stars").textContent=
 level===6?"❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅ ❄ ✧ ❅":
 level===7?"✧ ◇ ✦ ◇ ✧ ✦ ◇ ✧ ✦ ◇ ✧":
+level===8?"✦ 🌟 ⋆ ✧ ✦ ⋆ 🌟 ✧ ✦ ⋆ ✧":
 "✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦ ✧ ⋆ ✦";
 
 p1.style.left="25%";
@@ -181,7 +192,7 @@ crystals=[];
 levels[level].crystals.forEach(([fraction,height])=>{
 const element=document.createElement("div");
 element.className="crystal";
-element.textContent=level===6?"💠":level===7?"🔮":"💎";
+element.textContent=level===6?"💠":level===7?"🔮":level===8?"🌟":"💎";
 game.appendChild(element);
 crystals.push({element,fraction,height,collected:false});
 });
@@ -204,11 +215,11 @@ direction=0;
 door.style.background="#ffe59a";
 door.style.boxShadow="0 0 25px gold";
 
-if(level<7){
+if(level<8){
 message.textContent="🎉 Level "+level+" Complete! Next level unlocked!";
 nextButton.style.display="block";
 }else{
-message.textContent="🦇 The Hidden Cave Complete! Level 8 Coming Soon!";
+message.textContent="🌠 Starfall Valley Complete! Level 9 Coming Soon!";
 }
 restartButton.style.display="block";
 }
@@ -217,9 +228,7 @@ function update(){
 if(!finished){
 frame++;
 
-if(level===2){
-p1.style.left=(25+Math.sin(frame*.025)*7)+"%";
-}
+if(level===2)p1.style.left=(25+Math.sin(frame*.025)*7)+"%";
 if(level===3){
 p1.style.left=(25+Math.sin(frame*.022)*8)+"%";
 p2.style.left=(53+Math.sin(frame*.017)*5)+"%";
@@ -239,6 +248,10 @@ p2.style.left=(53+Math.sin(frame*.019)*7)+"%";
 if(level===7){
 p1.style.left=(25+Math.sin(frame*.024)*8)+"%";
 p2.style.left=(53+Math.sin(frame*.020)*8)+"%";
+}
+if(level===8){
+p1.style.left=(25+Math.sin(frame*.027)*9)+"%";
+p2.style.left=(53+Math.sin(frame*.021)*8)+"%";
 }
 
 const previousY=y;
@@ -264,12 +277,7 @@ const left=platform.element.offsetLeft;
 const right=left+platform.element.offsetWidth;
 const top=platform.height;
 
-if(
-x+playerWidth>left &&
-x<right &&
-previousY>=top &&
-y<=top
-){
+if(x+playerWidth>left&&x<right&&previousY>=top&&y<=top){
 y=top;
 velocityY=0;
 onSurface=true;
@@ -298,27 +306,21 @@ crystal.collected=true;
 crystal.element.remove();
 score++;
 scoreText.textContent="💎 "+score+" / 5";
-
 if(score===5)completeLevel();
 }
 });
 }
-
 requestAnimationFrame(update);
 }
 
 function moveButton(id,value){
 const button=document.getElementById(id);
-
 button.addEventListener("pointerdown",e=>{
 e.preventDefault();
 button.setPointerCapture(e.pointerId);
 if(!finished)direction=value;
 });
-
-function stop(){
-if(direction===value)direction=0;
-}
+function stop(){if(direction===value)direction=0}
 button.addEventListener("pointerup",stop);
 button.addEventListener("pointercancel",stop);
 button.addEventListener("lostpointercapture",stop);
@@ -332,13 +334,11 @@ e.preventDefault();
 jumpNow();
 });
 
-nextButton.addEventListener("click",function(){
-if(finished && level<7)startLevel(level+1);
+nextButton.addEventListener("click",()=>{
+if(finished&&level<8)startLevel(level+1);
 });
 
-restartButton.addEventListener("click",function(){
-startLevel(level);
-});
+restartButton.addEventListener("click",()=>startLevel(level));
 
 startLevel(1);
 requestAnimationFrame(update);
